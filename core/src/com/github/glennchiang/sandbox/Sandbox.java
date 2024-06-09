@@ -10,6 +10,9 @@ public class Sandbox extends ApplicationAdapter {
     public final static int SCREEN_HEIGHT = 640;
     private FitViewport viewport;
     private OrthographicCamera camera;
+    private final int gridRows = 60;
+    private final int gridCols = 60;
+    private Grid grid;
     private GridDisplay gridDisplay;
 
     @Override
@@ -17,7 +20,8 @@ public class Sandbox extends ApplicationAdapter {
         // Set up camera
         camera = new OrthographicCamera();
         viewport = new FitViewport(SCREEN_WIDTH, SCREEN_HEIGHT, camera);
-        gridDisplay = new GridDisplay((SCREEN_WIDTH - GridDisplay.WIDTH) / 2, (SCREEN_HEIGHT - GridDisplay.HEIGHT) / 2);
+        grid = new Grid(gridRows, gridCols);
+        gridDisplay = new GridDisplay((SCREEN_WIDTH - GridDisplay.WIDTH) / 2, (SCREEN_HEIGHT - GridDisplay.HEIGHT) / 2, grid);
     }
 
     @Override

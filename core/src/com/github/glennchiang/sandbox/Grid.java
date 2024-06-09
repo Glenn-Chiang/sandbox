@@ -1,6 +1,7 @@
 package com.github.glennchiang.sandbox;
 
 import com.github.glennchiang.sandbox.elements.Element;
+import com.github.glennchiang.sandbox.elements.Sand;
 
 public class Grid {
     public final int numRows;

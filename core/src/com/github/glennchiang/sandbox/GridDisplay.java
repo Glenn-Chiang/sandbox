@@ -2,6 +2,7 @@ package com.github.glennchiang.sandbox;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.github.glennchiang.sandbox.elements.Element;
 
 public class GridDisplay {
     public final static int WIDTH = 600;
@@ -35,13 +36,16 @@ public class GridDisplay {
         for (int row = 0; row < grid.numRows; row++) {
             for (int col = 0; col < grid.numCols; col++) {
                 Element element = grid.elementAt(row, col);
-
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-                // TODO: Get the corresponding color of the element at this cell
-                shapeRenderer.setColor(Color.WHITE);
+                // Skip over empty cells
+                if (element == null) {
+                    continue;
+                }
+                // Draw cell based on its contained element
+                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                shapeRenderer.setColor(element.getColor());
                 shapeRenderer.rect(x + col * cellWidth, y + HEIGHT - (row + 1) * cellHeight, cellWidth, cellHeight);
                 shapeRenderer.end();
-            } 
+            }
         }
     }
 }

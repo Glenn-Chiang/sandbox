@@ -12,16 +12,16 @@ public class Sandbox extends ApplicationAdapter {
     private OrthographicCamera camera;
     private final int gridRows = 60;
     private final int gridCols = 60;
-    private Grid grid;
-    private GridDisplay gridDisplay;
+    private Grid worldGrid; // The abstract grid containing the elements present in the world
+    private GridDisplay gridDisplay; // The visual representation of the abstract grid
 
     @Override
     public void create() {
         // Set up camera
         camera = new OrthographicCamera();
         viewport = new FitViewport(SCREEN_WIDTH, SCREEN_HEIGHT, camera);
-        grid = new Grid(gridRows, gridCols);
-        gridDisplay = new GridDisplay((SCREEN_WIDTH - GridDisplay.WIDTH) / 2, (SCREEN_HEIGHT - GridDisplay.HEIGHT) / 2, grid);
+        worldGrid = new Grid(gridRows, gridCols);
+        gridDisplay = new GridDisplay((SCREEN_WIDTH - GridDisplay.WIDTH) / 2, (SCREEN_HEIGHT - GridDisplay.HEIGHT) / 2, worldGrid);
     }
 
     @Override
@@ -30,15 +30,11 @@ public class Sandbox extends ApplicationAdapter {
         ScreenUtils.clear(0, 0, 0, 1);
 
         gridDisplay.render();
+        worldGrid.update();
     }
 
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);
-    }
-
-    @Override
-    public void dispose() {
-
     }
 }

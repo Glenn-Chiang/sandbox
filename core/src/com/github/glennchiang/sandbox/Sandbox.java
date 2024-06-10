@@ -15,19 +15,25 @@ public class Sandbox extends ApplicationAdapter {
     private FitViewport viewport;
     private OrthographicCamera camera;
     final Vector3 touchPos = new Vector3(); // Position of last touch/click interaction
-    private final int gridRows = 60;
-    private final int gridCols = 60;
+
+    private final int GRID_ROWS = 60;
+    private final int GRID_COLS = 60;
     private Grid worldGrid; // The abstract grid containing the elements present in the world
+
+    private final int GRID_WIDTH = 600;
+    private final int GRID_HEIGHT = 600;
     private GridDisplay gridDisplay; // The visual representation of the abstract grid
-    private ShapeRenderer shapeRenderer;
+
+    private ShapeRenderer shapeRenderer; // Used to draw all shapes
+
     @Override
     public void create() {
         // Set up camera
         camera = new OrthographicCamera();
         camera.setToOrtho(false, SCREEN_WIDTH, SCREEN_HEIGHT);
-//        viewport = new FitViewport(SCREEN_WIDTH, SCREEN_HEIGHT, camera);
-        worldGrid = new Grid(gridRows, gridCols);
-        gridDisplay = new GridDisplay((SCREEN_WIDTH - GridDisplay.WIDTH) / 2, (SCREEN_HEIGHT - GridDisplay.HEIGHT) / 2, worldGrid);
+        viewport = new FitViewport(SCREEN_WIDTH, SCREEN_HEIGHT, camera);
+        worldGrid = new Grid(GRID_ROWS, GRID_COLS);
+        gridDisplay = new GridDisplay((SCREEN_WIDTH - GRID_WIDTH) / 2, (SCREEN_HEIGHT - GRID_HEIGHT) / 2, GRID_WIDTH, GRID_HEIGHT, worldGrid);
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(camera.combined);
     }
@@ -48,10 +54,10 @@ public class Sandbox extends ApplicationAdapter {
         }
     }
 
-//    @Override
-//    public void resize(int width, int height) {
-//        viewport.update(width, height);
-//    }
+    @Override
+    public void resize(int width, int height) {
+        viewport.update(width, height);
+    }
 
 
     @Override

@@ -11,7 +11,7 @@ public class Stone extends Element {
         return Color.GRAY;
     }
     @Override
-    public void update(Grid grid, int row, int col) {
+    public void update(int row, int col) {
         // Stone simply stays in place
         return;
     }

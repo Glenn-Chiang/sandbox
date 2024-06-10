@@ -10,8 +10,8 @@ import com.badlogic.gdx.utils.Array;
 import com.github.glennchiang.sandbox.elements.Element;
 
 public class GridDisplay {
-    public final static int WIDTH = 600;
-    public final static int HEIGHT = 600;
+    public final int WIDTH;
+    public final int HEIGHT;
 
     // Data from this grid will be displayed by GridDisplay
     private final Grid grid;
@@ -25,8 +25,10 @@ public class GridDisplay {
 
     // GridDisplay is initialized by passing its position (bottom-left corner)
     // and the abstract grid of elements to display
-    public GridDisplay(int x, int y, Grid grid) {
+    public GridDisplay(int x, int y, int width, int height, Grid grid) {
         this.grid = grid;
+        this.WIDTH = width;
+        this.HEIGHT = height;
 
         // Create rectangle representing grid boundaries
         gridFrame = new Rectangle();

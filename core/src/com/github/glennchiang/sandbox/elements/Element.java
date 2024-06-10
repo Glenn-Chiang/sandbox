@@ -4,14 +4,20 @@ import com.badlogic.gdx.graphics.Color;
 import com.github.glennchiang.sandbox.Grid;
 
 public abstract class Element {
-    protected final Grid grid; // The world grid that this element is contained in
+    public ElementType elementType;
+
+    // Current position of this element in its grid
     protected int row;
     protected int col;
 
     public abstract Color getColor();
-    public Element(Grid grid) {
-        this.grid = grid;
+
+    public Element() {
+
     }
 
-    public abstract void update();
+    public void update(Grid grid, int row, int col) {
+        this.row = row;
+        this.col = col;
+    }
 }

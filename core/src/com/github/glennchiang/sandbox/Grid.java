@@ -58,7 +58,7 @@ public class Grid {
                 if (element == null || isVisited(row, col)) {
                     continue;
                 }
-                element.update();
+                element.update(this, row, col);
                 markVisited(row, col);
                 resetVisited();
             }

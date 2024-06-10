@@ -3,6 +3,7 @@ package com.github.glennchiang.sandbox;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -18,14 +19,17 @@ public class Sandbox extends ApplicationAdapter {
     private final int gridCols = 60;
     private Grid worldGrid; // The abstract grid containing the elements present in the world
     private GridDisplay gridDisplay; // The visual representation of the abstract grid
-
+    private ShapeRenderer shapeRenderer;
     @Override
     public void create() {
         // Set up camera
         camera = new OrthographicCamera();
-        viewport = new FitViewport(SCREEN_WIDTH, SCREEN_HEIGHT, camera);
+        camera.setToOrtho(false, SCREEN_WIDTH, SCREEN_HEIGHT);
+//        viewport = new FitViewport(SCREEN_WIDTH, SCREEN_HEIGHT, camera);
         worldGrid = new Grid(gridRows, gridCols);
         gridDisplay = new GridDisplay((SCREEN_WIDTH - GridDisplay.WIDTH) / 2, (SCREEN_HEIGHT - GridDisplay.HEIGHT) / 2, worldGrid);
+        shapeRenderer = new ShapeRenderer();
+        shapeRenderer.setProjectionMatrix(camera.combined);
     }
 
     @Override
@@ -34,7 +38,7 @@ public class Sandbox extends ApplicationAdapter {
         ScreenUtils.clear(0, 0, 0, 1);
         camera.update();
 
-        gridDisplay.render();
+        gridDisplay.render(shapeRenderer);
         worldGrid.update();
 
         if (Gdx.input.isTouched()) {
@@ -44,8 +48,14 @@ public class Sandbox extends ApplicationAdapter {
         }
     }
 
+//    @Override
+//    public void resize(int width, int height) {
+//        viewport.update(width, height);
+//    }
+
+
     @Override
-    public void resize(int width, int height) {
-        viewport.update(width, height);
+    public void dispose() {
+        shapeRenderer.dispose();
     }
 }

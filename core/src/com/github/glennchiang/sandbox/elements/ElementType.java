@@ -5,14 +5,14 @@ import com.github.glennchiang.sandbox.Grid;
 public enum ElementType {
     STONE(Stone.class) {
         @Override
-        public Stone createInstance() {
-            return new Stone();
+        public Stone createInstance(Grid grid) {
+            return new Stone(grid);
         }
     },
     SAND(Sand.class) {
         @Override
-        public Sand createInstance() {
-            return new Sand();
+        public Sand createInstance(Grid grid) {
+            return new Sand(grid);
         }
     };
 
@@ -22,5 +22,5 @@ public enum ElementType {
         this.clazz = elementClass;
     }
 
-    public abstract Element createInstance();
+    public abstract Element createInstance(Grid grid);
 }

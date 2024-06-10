@@ -18,6 +18,6 @@ public class ElementPainter
 
     // Create an instance of the active element and place it at the given position on the grid
     public void paintCell(Grid grid, int row, int col) {
-        grid.setElement(row, col, activeElement.createInstance());
+        grid.setElement(row, col, activeElement.createInstance(grid));
     }
 }

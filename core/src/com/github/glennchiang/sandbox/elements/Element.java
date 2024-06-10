@@ -7,18 +7,20 @@ public abstract class Element {
     public ElementType elementType;
 
     // Current position of this element in its grid
-    protected Grid grid;
+    protected final Grid grid;
     protected int row;
     protected int col;
 
     public abstract Color getColor();
 
-    public Element() {}
+    public Element(Grid grid) {
+        this.grid = grid;
+    }
+
 
     // In each update loop, the Grid will call this method for each element,
     // passing its latest position
     public void update(Grid grid, int row, int col) {
-        this.grid = grid;
         this.row = row;
         this.col = col;
     }

@@ -22,6 +22,5 @@ public enum ElementType {
         this.clazz = elementClass;
     }
 
-    // Create an instance of this element type at the given position on the grid
     public abstract Element createInstance();
 }

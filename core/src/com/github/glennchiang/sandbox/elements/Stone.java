@@ -7,9 +7,6 @@ public class Stone extends Element {
     public Stone(Grid grid) {
         super(grid);
     }
-    public Color getColor() {
-        return Color.GRAY;
-    }
     @Override
     public void update(int row, int col) {
         // Stone simply stays in place

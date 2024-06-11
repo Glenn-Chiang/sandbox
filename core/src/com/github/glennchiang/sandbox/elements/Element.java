@@ -12,7 +12,9 @@ public abstract class Element {
         return ElementType.valueOf(this.getClass().getSimpleName().toUpperCase());
     }
 
-    public abstract Color getColor();
+    public Color getColor() {
+       return getElementType().color;
+    }
 
     public Element(Grid grid) {
         this.grid = grid;

@@ -10,11 +10,6 @@ public class Water extends Element {
     }
 
     @Override
-    public Color getColor() {
-        return Color.SKY;
-    }
-
-    @Override
     public void update(int row, int col) {
         // If below is empty, move down
         if (grid.isEmptyAt(row + 1, col)) {

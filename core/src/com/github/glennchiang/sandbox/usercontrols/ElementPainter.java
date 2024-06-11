@@ -1,5 +1,10 @@
-package com.github.glennchiang.sandbox;
+package com.github.glennchiang.sandbox.usercontrols;
 
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.github.glennchiang.sandbox.Grid;
+import com.github.glennchiang.sandbox.GridDisplay;
+import com.github.glennchiang.sandbox.elements.Element;
 import com.github.glennchiang.sandbox.elements.ElementType;
 
 // Adds elements to the world grid via direct user interaction
@@ -20,4 +25,5 @@ public class ElementPainter
     public void paintCell(Grid grid, int row, int col) {
         grid.setElement(row, col, activeElement.createInstance(grid));
     }
+
 }

@@ -1,13 +1,11 @@
 package com.github.glennchiang.sandbox;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Array;
 import com.github.glennchiang.sandbox.elements.Element;
+import com.github.glennchiang.sandbox.usercontrols.ElementPainter;
 
 public class GridDisplay {
     public final int WIDTH;
@@ -21,14 +19,15 @@ public class GridDisplay {
     // Shapes representing the cells of the grid
     private final Rectangle[][] cells;
 
-    private final ElementPainter elementPainter = new ElementPainter();
+    private final ElementPainter elementPainter;
 
     // GridDisplay is initialized by passing its position (bottom-left corner)
     // and the abstract grid of elements to display
-    public GridDisplay(int x, int y, int width, int height, Grid grid) {
+    public GridDisplay(int x, int y, int width, int height, Grid grid, ElementPainter elementPainter) {
         this.grid = grid;
         this.WIDTH = width;
         this.HEIGHT = height;
+        this.elementPainter = elementPainter;
 
         // Create rectangle representing grid boundaries
         gridFrame = new Rectangle();

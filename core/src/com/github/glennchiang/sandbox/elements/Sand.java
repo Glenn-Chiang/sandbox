@@ -3,7 +3,7 @@ package com.github.glennchiang.sandbox.elements;
 import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
 
-public class Sand extends Element {
+public class Sand extends Solid {
     public Sand(Grid grid) {
         super(grid);
     }
@@ -35,8 +35,8 @@ public class Sand extends Element {
 
         boolean leftEmpty = isCellEmpty(Direction.LEFT);
         boolean rightEmpty = isCellEmpty(Direction.RIGHT);
-        boolean canSinkDownLeft = getElementAt(Direction.DOWN_LEFT) instanceof Water && leftEmpty;
-        boolean canSinkDownRight = getElementAt(Direction.DOWN_RIGHT) instanceof Water && rightEmpty;
+        boolean canSinkDownLeft = sinksIn(getElementAt(Direction.DOWN_LEFT)) && leftEmpty;
+        boolean canSinkDownRight = sinksIn(getElementAt(Direction.DOWN_RIGHT)) && rightEmpty;
 
 
         if (leftDownEmpty) {

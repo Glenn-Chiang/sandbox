@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.github.glennchiang.sandbox.Grid;
 
-public class Water extends Element {
+public class Water extends Liquid {
     public Water(Grid grid) {
         super(grid);
     }

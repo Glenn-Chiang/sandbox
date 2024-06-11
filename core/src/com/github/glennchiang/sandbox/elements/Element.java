@@ -42,5 +42,8 @@ public abstract class Element {
         return grid.isEmptyAt(row + dir.y, col + dir.x);
     }
 
-
+    protected boolean sinksIn(Element element) {
+        // TODO: Update this rule with more realistic logic
+        return this instanceof Solid && element instanceof Liquid;
+    }
 }

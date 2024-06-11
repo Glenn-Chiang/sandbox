@@ -49,6 +49,12 @@ public class Grid {
         setElement(rowB, colB, temp);
     }
 
+    // Move element at targetPos to displacedPos, then move element at displacerPos to targetPos
+    public void displaceElement(CellPosition displacerPos, CellPosition targetPos, CellPosition displacedPos) {
+        moveElement(targetPos.row, targetPos.col, displacedPos.row, displacedPos.col);
+        moveElement(displacerPos.row, displacerPos.col, targetPos.row, targetPos.col);
+    }
+
     public boolean isEmptyAt(int row, int col) {
         // If the position is out of bounds, we don't consider it to be empty
         if (!inBounds(row, col)) return false;

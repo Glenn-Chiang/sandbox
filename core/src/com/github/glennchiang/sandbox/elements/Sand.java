@@ -1,5 +1,6 @@
 package com.github.glennchiang.sandbox.elements;
 
+import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
 
 public class Sand extends Element {
@@ -9,31 +10,18 @@ public class Sand extends Element {
 
     @Override
     public void update(int row, int col) {
-        // If below is empty, move down
-        if (grid.isEmptyAt(row + 1, col)) {
+        if (isCellEmpty(Direction.DOWN)) {
             grid.moveElement(row, col, row + 1, col);
             return;
         }
 
         // If below is water, sink in water by swapping places with it
-        if (grid.elementAt(row + 1, col) instanceof Water) {
+        if (getElementAt(Direction.DOWN) instanceof Water) {
             grid.swapElements(row, col, row + 1, col);
         }
 
-        boolean leftDownEmpty = grid.isEmptyAt(row + 1, col - 1);
-        boolean rightDownEmpty = grid.isEmptyAt(row + 1, col + 1);
-
-        if (leftDownEmpty && !rightDownEmpty) {
-            // Move left down
-            grid.moveElement(row, col, row + 1, col - 1);
-            return;
-        }
-
-        if (rightDownEmpty && !leftDownEmpty) {
-            // Move right down
-            grid.moveElement(row, col, row + 1, col + 1);
-            return;
-        }
+        boolean leftDownEmpty = isCellEmpty(Direction.DOWN_LEFT);
+        boolean rightDownEmpty = isCellEmpty(Direction.DOWN_RIGHT);
 
         if (leftDownEmpty && rightDownEmpty) {
             // Randomly decide to move left down or right down
@@ -42,6 +30,25 @@ public class Sand extends Element {
             } else {
                 grid.moveElement(row, col, row + 1, col + 1);
             }
+            return;
         }
+
+        boolean leftEmpty = isCellEmpty(Direction.LEFT);
+        boolean rightEmpty = isCellEmpty(Direction.RIGHT);
+        boolean canSinkDownLeft = getElementAt(Direction.DOWN_LEFT) instanceof Water && leftEmpty;
+        boolean canSinkDownRight = getElementAt(Direction.DOWN_RIGHT) instanceof Water && rightEmpty;
+
+
+        if (leftDownEmpty) {
+            // Move left down
+            grid.moveElement(row, col, row + 1, col - 1);
+            return;
+        }
+
+        if (rightDownEmpty) {
+            // Move right down
+            grid.moveElement(row, col, row + 1, col + 1);
+        }
+
     }
 }

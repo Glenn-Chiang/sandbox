@@ -56,10 +56,10 @@ public class Sandbox extends ApplicationAdapter {
         rootLayout = new Table();
         rootLayout.setFillParent(true);
         stage.addActor(rootLayout);
-        rootLayout.setDebug(true);
+//        rootLayout.setDebug(true);
 
         elementPanel = new ElementPanel(elementPainter);
-        rootLayout.add(elementPanel.container).expand().top().right().width(180).padTop(10);
+        rootLayout.add(elementPanel.table).expand().top().right().width(180).padTop(10);
 
     }
 

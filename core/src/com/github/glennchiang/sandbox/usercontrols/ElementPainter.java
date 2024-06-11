@@ -11,7 +11,7 @@ import com.github.glennchiang.sandbox.elements.ElementType;
 // This class should not be used for dynamic reactions between elements
 public class ElementPainter
 {
-    private ElementType activeElement = ElementType.WATER;
+    private ElementType activeElement = ElementType.SAND;
 
     public ElementType[] getElementTypes() {
         return ElementType.values();

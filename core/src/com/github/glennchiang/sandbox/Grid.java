@@ -88,7 +88,7 @@ public class Grid {
                 if (isEmptyAt(row, col) || isVisited(row, col)) {
                     continue;
                 }
-                element.update(row, col);
+                element.updateElement(row, col);
                 markVisited(row, col);
             }
         }

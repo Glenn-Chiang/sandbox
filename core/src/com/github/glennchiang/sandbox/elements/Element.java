@@ -4,11 +4,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.github.glennchiang.sandbox.Grid;
 
 public abstract class Element {
-    public ElementType elementType;
 
     // Current position of this element in its grid
     protected final Grid grid;
 
+    public ElementType getElementType() {
+        return ElementType.valueOf(this.getClass().getSimpleName().toUpperCase());
+    }
 
     public abstract Color getColor();
 

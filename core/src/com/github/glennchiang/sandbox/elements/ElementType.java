@@ -20,6 +20,11 @@ public enum ElementType {
         public Sand createInstance(Grid grid) {
             return new Sand(grid);
         }
+    },
+    WATER() {
+        @Override
+        public Water createInstance(Grid grid) {return new Water(grid); }
     };
+
     public abstract Element createInstance(Grid grid);
 }

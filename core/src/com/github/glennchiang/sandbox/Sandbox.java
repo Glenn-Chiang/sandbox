@@ -16,8 +16,8 @@ public class Sandbox extends ApplicationAdapter {
     private OrthographicCamera camera;
     final Vector3 touchPos = new Vector3(); // Position of last touch/click interaction
 
-    private final int GRID_ROWS = 60;
-    private final int GRID_COLS = 60;
+    private final int GRID_ROWS = 150;
+    private final int GRID_COLS = 150;
     private Grid worldGrid; // The abstract grid containing the elements present in the world
 
     private final int GRID_WIDTH = 600;

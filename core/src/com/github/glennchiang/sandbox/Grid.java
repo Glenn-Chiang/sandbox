@@ -1,6 +1,7 @@
 package com.github.glennchiang.sandbox;
 
 import com.github.glennchiang.sandbox.elements.Element;
+import com.github.glennchiang.sandbox.elements.ElementType;
 
 public class Grid {
     public final int numRows;
@@ -16,6 +17,9 @@ public class Grid {
     }
 
     public Element elementAt(int row, int col) {
+        if (!inBounds(row, col)) {
+            return null;
+        }
         return grid[row][col];
     }
     // Sets the element at the given cell to the given element
@@ -38,7 +42,14 @@ public class Grid {
         markVisited(nextRow, nextCol);
     }
 
-    public boolean isCellEmpty(int row, int col) {
+    // Swap element at (rowA, colA) with element at (rowB, colB)
+    public void swapElements(int rowA, int colA, int rowB, int colB) {
+        Element temp = elementAt(rowA, colA);
+        setElement(rowA, colA, elementAt(rowB, colB));
+        setElement(rowB, colB, temp);
+    }
+
+    public boolean isEmptyAt(int row, int col) {
         // If the position is out of bounds, we don't consider it to be empty
         if (!inBounds(row, col)) return false;
         return grid[row][col] == null;
@@ -74,7 +85,7 @@ public class Grid {
             for (int col = 0; col < numCols; col++) {
                 Element element = grid[row][col];
                 // Skip over cells that are empty or have already been visited
-                if (isCellEmpty(row, col) || isVisited(row, col)) {
+                if (isEmptyAt(row, col) || isVisited(row, col)) {
                     continue;
                 }
                 element.update(row, col);

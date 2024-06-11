@@ -4,14 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.github.glennchiang.sandbox.Grid;
 
-public class Sand extends Element {
-    public Sand(Grid grid) {
+public class Water extends Element {
+    public Water(Grid grid) {
         super(grid);
     }
 
     @Override
     public Color getColor() {
-        return Color.valueOf("F7DC6F") ;
+        return Color.SKY;
     }
 
     @Override
@@ -22,13 +22,10 @@ public class Sand extends Element {
             return;
         }
 
-        // If below is water, sink in water by swapping places with it
-        if (grid.elementAt(row + 1, col) instanceof Water) {
-            grid.swapElements(row, col, row + 1, col);
-        }
-
         boolean leftDownEmpty = grid.isEmptyAt(row + 1, col - 1);
         boolean rightDownEmpty = grid.isEmptyAt(row + 1, col + 1);
+        boolean leftEmpty = grid.isEmptyAt(row, col - 1);
+        boolean rightEmpty = grid.isEmptyAt(row, col + 1);
 
         if (leftDownEmpty && !rightDownEmpty) {
             // Move left down

@@ -1,6 +1,8 @@
 package com.github.glennchiang.sandbox.elements;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.github.glennchiang.sandbox.CellPosition;
 import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
 
@@ -8,8 +10,8 @@ public abstract class Element {
 
     // Current position of this element in its grid
     protected final Grid grid;
-    protected int row;
-    protected int col;
+    private int row;
+    private int col;
 
     public ElementType getElementType() {
         return ElementType.valueOf(this.getClass().getSimpleName().toUpperCase());
@@ -40,6 +42,18 @@ public abstract class Element {
 
     protected boolean isCellEmpty(Direction dir) {
         return grid.isEmptyAt(row + dir.y, col + dir.x);
+    }
+
+    protected void move(Direction dir) {
+        grid.moveElement(row, col, row + dir.y, col + dir.x);
+    }
+
+    // Move this element in the direction of displacerDir to its target position
+    // Displace the element at the target position to its displaced position
+    protected void displace(Direction displacerDir, Direction displacedDir) {
+        CellPosition targetPos = new CellPosition(row + displacerDir.y, col + displacerDir.x);
+        CellPosition displacedPos = new CellPosition(targetPos.row + displacedDir.y, targetPos.col + displacedDir.x);
+        grid.displaceElement(new CellPosition(row, col), targetPos, displacedPos);
     }
 
     protected boolean sinksIn(Element element) {

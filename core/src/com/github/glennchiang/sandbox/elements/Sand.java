@@ -11,7 +11,7 @@ public class Sand extends Solid {
     @Override
     public void update(int row, int col) {
         if (isCellEmpty(Direction.DOWN)) {
-            grid.moveElement(row, col, row + 1, col);
+            move(Direction.DOWN);
             return;
         }
 
@@ -26,9 +26,9 @@ public class Sand extends Solid {
         if (leftDownEmpty && rightDownEmpty) {
             // Randomly decide to move left down or right down
             if (Math.random() < 0.5) {
-                grid.moveElement(row, col, row + 1, col - 1);
+                move(Direction.LEFT);
             } else {
-                grid.moveElement(row, col, row + 1, col + 1);
+                move(Direction.RIGHT);
             }
             return;
         }
@@ -38,17 +38,13 @@ public class Sand extends Solid {
         boolean canSinkDownLeft = sinksIn(getElementAt(Direction.DOWN_LEFT)) && leftEmpty;
         boolean canSinkDownRight = sinksIn(getElementAt(Direction.DOWN_RIGHT)) && rightEmpty;
 
-
         if (leftDownEmpty) {
-            // Move left down
-            grid.moveElement(row, col, row + 1, col - 1);
+            move(Direction.DOWN_LEFT);
             return;
         }
 
         if (rightDownEmpty) {
-            // Move right down
-            grid.moveElement(row, col, row + 1, col + 1);
+            move(Direction.DOWN_RIGHT);
         }
-
     }
 }

@@ -6,7 +6,7 @@ import com.github.glennchiang.sandbox.elements.ElementType;
 // This class should not be used for dynamic reactions between elements
 public class ElementPainter
 {
-    private ElementType activeElement = ElementType.SAND; // Default element is sand
+    private ElementType activeElement = ElementType.WATER;
 
     public ElementType[] getElementTypes() {
         return ElementType.values();

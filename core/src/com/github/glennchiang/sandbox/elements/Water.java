@@ -46,6 +46,28 @@ public class Water extends Element {
             } else {
                 grid.moveElement(row, col, row + 1, col + 1);
             }
+            return;
+        }
+
+        if (leftEmpty && !rightEmpty) {
+            // Move left
+            grid.moveElement(row, col, row, col - 1);
+            return;
+        }
+
+        if (rightEmpty && !leftEmpty) {
+            // Move right
+            grid.moveElement(row, col, row, col + 1);
+            return;
+        }
+
+        if (leftEmpty && rightEmpty) {
+            // Randomly decide to move left or right
+            if (Math.random() < 0.5) {
+                grid.moveElement(row, col, row, col - 1);
+            } else {
+                grid.moveElement(row, col, row, col + 1);
+            }
         }
     }
 }

@@ -1,10 +1,6 @@
-package com.github.glennchiang.sandbox.elements;
+package com.github.glennchiang.sandbox.elements.liquids;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
-import com.github.glennchiang.sandbox.utils.RandomUtils;
 
 public class Water extends Liquid {
     private final int fallRate = 1;

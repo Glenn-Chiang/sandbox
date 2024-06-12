@@ -1,8 +1,6 @@
-package com.github.glennchiang.sandbox.elements;
+package com.github.glennchiang.sandbox.elements.granules;
 
-import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
-import com.github.glennchiang.sandbox.utils.RandomUtils;
 
 public class Sand extends Granule {
     private final int fallRate = 1;

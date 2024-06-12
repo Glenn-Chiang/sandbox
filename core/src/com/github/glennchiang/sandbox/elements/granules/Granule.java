@@ -1,24 +1,38 @@
-package com.github.glennchiang.sandbox.elements;
+package com.github.glennchiang.sandbox.elements.granules;
 
 import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
+import com.github.glennchiang.sandbox.elements.Element;
+import com.github.glennchiang.sandbox.elements.liquids.Liquid;
+import com.github.glennchiang.sandbox.elements.liquids.Water;
 import com.github.glennchiang.sandbox.utils.RandomUtils;
 
-public abstract class Liquid extends Element {
+public abstract class Granule extends Element {
     protected final int fallRate; // Number of cells by which the element will move down per frame
-    protected final int flowRate; // Number of cells by which the element will move horizontally per frame
 
-    public Liquid(Grid grid) {
+    public Granule(Grid grid) {
         super(grid);
         fallRate = getFallRate();
-        flowRate = getFlowRate();
     }
+    protected abstract int getFallRate();
+
     @Override
-    protected void update(int row, int col) {
+    protected boolean sinksIn(Element element) {
+        return element instanceof Liquid;
+    }
+
+    @Override
+    public void update(int row, int col) {
         Direction targetDirection = Direction.DOWN;
 
         if (isCellEmpty(targetDirection)) {
             move(targetDirection, fallRate);
+            return;
+        }
+
+        // If below is water, sink in water by swapping places with it
+        if (getElementAt(targetDirection) instanceof Water) {
+            swap(targetDirection);
             return;
         }
 
@@ -36,18 +50,5 @@ public abstract class Liquid extends Element {
         }
 
         move(targetDirection, fallRate);
-    }
-
-    protected abstract int getFallRate();
-    protected abstract int getFlowRate();
-
-    @Override
-    protected boolean sinksIn(Element element) {
-        if (element instanceof Solid) return false;
-        if (element instanceof Liquid) {
-            // TODO: Check relative densities of liquids
-            return true;
-        }
-        return false;
     }
 }

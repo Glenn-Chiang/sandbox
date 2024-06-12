@@ -2,6 +2,9 @@ package com.github.glennchiang.sandbox.elements;
 
 import com.badlogic.gdx.graphics.Color;
 import com.github.glennchiang.sandbox.Grid;
+import com.github.glennchiang.sandbox.elements.granules.Sand;
+import com.github.glennchiang.sandbox.elements.liquids.Water;
+import com.github.glennchiang.sandbox.elements.solids.Stone;
 
 public enum ElementType {
     EMPTY(Color.WHITE) {

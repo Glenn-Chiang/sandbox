@@ -5,7 +5,6 @@ import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.Element;
 import com.github.glennchiang.sandbox.elements.moveables.MovableElement;
 import com.github.glennchiang.sandbox.elements.moveables.liquids.Liquid;
-import com.github.glennchiang.sandbox.utils.RandomUtils;
 
 public abstract class Granule extends MovableElement {
     protected final int fallRate; // Number of cells by which the element will move down per frame
@@ -22,7 +21,7 @@ public abstract class Granule extends MovableElement {
     }
 
     @Override
-    protected boolean tryMove(Direction dir) {
+    protected boolean tryStep(Direction dir) {
         // If possible, sink in the element at the target position
         if (sinksIn(getElementAt(dir))) {
             swap(dir);
@@ -32,24 +31,9 @@ public abstract class Granule extends MovableElement {
     }
 
     @Override
-    public void update(int row, int col) {
-        Direction targetDirection = Direction.DOWN;
-
-        if (move(targetDirection, fallRate)) return;
-
-        boolean canMoveDownLeft = isCellEmpty(Direction.DOWN_LEFT);
-        boolean canMoveDownRight = isCellEmpty(Direction.DOWN_RIGHT);
-
-        if (canMoveDownLeft && canMoveDownRight) {
-            targetDirection = RandomUtils.selectRandom(Direction.DOWN_LEFT, Direction.DOWN_RIGHT);
-        }
-        else if (canMoveDownLeft) {
-            targetDirection = Direction.DOWN_LEFT;
-        }
-        else if (canMoveDownRight) {
-            targetDirection = Direction.DOWN_RIGHT;
-        }
-
-        move(targetDirection, fallRate);
+    protected void update(int row, int col) {
+        if (fall(Direction.DOWN)) return;
+        if (fall(Direction.DOWN_LEFT)) return;
+        fall(Direction.DOWN_RIGHT);
     }
 }

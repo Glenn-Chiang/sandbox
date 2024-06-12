@@ -4,7 +4,7 @@ import com.github.glennchiang.sandbox.Grid;
 
 public class Water extends Liquid {
     private final int fallRate = 1;
-    private final int flowRate = 2;
+    private final int flowRate = 1;
 
     public Water(Grid grid) {
         super(grid);
@@ -21,7 +21,7 @@ public class Water extends Liquid {
     }
 
     @Override
-    public void update(int row, int col) {
-
+    protected void update(int row, int col) {
+        super.update(row, col);
     }
 }

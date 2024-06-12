@@ -10,16 +10,7 @@ public abstract class Solid extends Element {
     }
 
     @Override
-    protected boolean tryMove(Direction dir) {
-        return false;
-    }
-    @Override
     protected void update(int row, int col) {
         // Do nothing
-    }
-
-    @Override
-    protected boolean sinksIn(Element element) {
-        return false;
     }
 }

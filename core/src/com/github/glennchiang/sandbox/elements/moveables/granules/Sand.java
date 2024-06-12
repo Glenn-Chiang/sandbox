@@ -12,4 +12,9 @@ public class Sand extends Granule {
     protected int getFallRate() {
         return fallRate;
     }
+
+    @Override
+    protected void update(int row, int col) {
+        super.update(row, col);
+    }
 }

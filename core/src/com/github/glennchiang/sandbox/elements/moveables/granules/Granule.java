@@ -6,12 +6,26 @@ import com.github.glennchiang.sandbox.elements.Element;
 import com.github.glennchiang.sandbox.elements.moveables.MovableElement;
 import com.github.glennchiang.sandbox.elements.moveables.liquids.Liquid;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Granule extends MovableElement {
     protected final int fallRate; // Number of cells by which the element will move down per frame
 
     public Granule(Grid grid) {
         super(grid);
         fallRate = getFallRate();
+    }
+
+    @Override
+    protected void update(int row, int col) {
+        if (fall(Direction.DOWN)) return;
+        List<Move> moves = new ArrayList<>();
+        Move downLeft = () -> fall(Direction.DOWN_LEFT);
+        Move downRight = () -> fall(Direction.DOWN_RIGHT);
+        moves.add(downLeft);
+        moves.add(downRight);
+        randomMove(moves);
     }
 
     @Override
@@ -28,12 +42,5 @@ public abstract class Granule extends MovableElement {
             return true;
         }
         return false;
-    }
-
-    @Override
-    protected void update(int row, int col) {
-        if (fall(Direction.DOWN)) return;
-        if (fall(Direction.DOWN_LEFT)) return;
-        fall(Direction.DOWN_RIGHT);
     }
 }

@@ -5,6 +5,10 @@ import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.Element;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 public abstract class MovableElement extends Element {
     private final int fallRate; // Number of cells by which the element will move down per frame
 
@@ -48,6 +52,23 @@ public abstract class MovableElement extends Element {
 
     // Subclasses can implement other conditions and ways to move
     protected abstract boolean tryStep(Direction dir);
+
+
+    protected interface Move {
+        boolean doMove();
+    }
+
+    // Given a list of moves, randomly select a move to execute
+    // If selected move fails, select another move until all moves are tried
+    protected final boolean randomMove(List<Move> moves) {
+        Collections.shuffle(moves, new Random());
+        for (Move move: moves) {
+            if (move.doMove()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     protected final void swap(Direction dir) {
         grid.swapElements(row, col, row + dir.y, col + dir.x);

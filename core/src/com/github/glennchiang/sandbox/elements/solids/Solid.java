@@ -3,7 +3,6 @@ package com.github.glennchiang.sandbox.elements.solids;
 import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.Element;
-import com.github.glennchiang.sandbox.elements.liquids.Liquid;
 
 public abstract class Solid extends Element {
     public Solid(Grid grid) {

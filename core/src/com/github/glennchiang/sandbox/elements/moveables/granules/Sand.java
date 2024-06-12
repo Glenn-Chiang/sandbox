@@ -1,4 +1,4 @@
-package com.github.glennchiang.sandbox.elements.granules;
+package com.github.glennchiang.sandbox.elements.moveables.granules;
 
 import com.github.glennchiang.sandbox.Grid;
 

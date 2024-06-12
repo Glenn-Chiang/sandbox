@@ -1,7 +1,6 @@
 package com.github.glennchiang.sandbox;
 
 import com.github.glennchiang.sandbox.elements.Element;
-import com.github.glennchiang.sandbox.elements.ElementType;
 
 public class Grid {
     public final int numRows;
@@ -65,6 +64,9 @@ public class Grid {
     public boolean inBounds(int row, int col) {
         return row >= 0 && row < numRows && col >= 0 && col < numCols;
     }
+    public boolean inBounds(CellPosition cellPosition) {
+        return inBounds(cellPosition.row, cellPosition.col);
+    }
 
     // Check whether the given cell has already been visited in the current render loop
     private boolean isVisited(int row, int col) {
@@ -94,7 +96,7 @@ public class Grid {
                 if (isEmptyAt(row, col) || isVisited(row, col)) {
                     continue;
                 }
-                element.updateElement(row, col);
+                element.updateSelf(row, col);
                 markVisited(row, col);
             }
         }

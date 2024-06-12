@@ -3,7 +3,7 @@ package com.github.glennchiang.sandbox.elements;
 import com.badlogic.gdx.graphics.Color;
 import com.github.glennchiang.sandbox.Grid;
 
-public class Stone extends Element {
+public class Stone extends Solid {
     public Stone(Grid grid) {
         super(grid);
     }

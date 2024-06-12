@@ -2,49 +2,42 @@ package com.github.glennchiang.sandbox.elements;
 
 import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
+import com.github.glennchiang.sandbox.utils.RandomUtils;
 
 public class Sand extends Solid {
     public Sand(Grid grid) {
         super(grid);
     }
+    private final int fallSpeed = 1; // Max number of cells the element will fall per frame
 
     @Override
     public void update(int row, int col) {
-        if (isCellEmpty(Direction.DOWN)) {
-            move(Direction.DOWN);
+        Direction targetDirection = Direction.DOWN;
+
+        if (isCellEmpty(targetDirection)) {
+            move(targetDirection, fallSpeed);
             return;
         }
 
         // If below is water, sink in water by swapping places with it
-        if (getElementAt(Direction.DOWN) instanceof Water) {
-            grid.swapElements(row, col, row + 1, col);
-        }
-
-        boolean leftDownEmpty = isCellEmpty(Direction.DOWN_LEFT);
-        boolean rightDownEmpty = isCellEmpty(Direction.DOWN_RIGHT);
-
-        if (leftDownEmpty && rightDownEmpty) {
-            // Randomly decide to move left down or right down
-            if (Math.random() < 0.5) {
-                move(Direction.LEFT);
-            } else {
-                move(Direction.RIGHT);
-            }
+        if (getElementAt(targetDirection) instanceof Water) {
+            swap(targetDirection);
             return;
         }
 
-        boolean leftEmpty = isCellEmpty(Direction.LEFT);
-        boolean rightEmpty = isCellEmpty(Direction.RIGHT);
-        boolean canSinkDownLeft = sinksIn(getElementAt(Direction.DOWN_LEFT)) && leftEmpty;
-        boolean canSinkDownRight = sinksIn(getElementAt(Direction.DOWN_RIGHT)) && rightEmpty;
+        boolean canMoveDownLeft = isCellEmpty(Direction.DOWN_LEFT);
+        boolean canMoveDownRight = isCellEmpty(Direction.DOWN_RIGHT);
 
-        if (leftDownEmpty) {
-            move(Direction.DOWN_LEFT);
-            return;
+        if (canMoveDownLeft && canMoveDownRight) {
+            targetDirection = RandomUtils.selectRandom(Direction.DOWN_LEFT, Direction.DOWN_RIGHT);
+        }
+        else if (canMoveDownLeft) {
+            targetDirection = Direction.DOWN_LEFT;
+        }
+        else if (canMoveDownRight) {
+            targetDirection = Direction.DOWN_RIGHT;
         }
 
-        if (rightDownEmpty) {
-            move(Direction.DOWN_RIGHT);
-        }
+        move(targetDirection, fallSpeed);
     }
 }

@@ -9,7 +9,7 @@ import com.github.glennchiang.sandbox.Grid;
 public abstract class Element {
 
     // Current position of this element in its grid
-    protected final Grid grid;
+    private final Grid grid;
     private int row;
     private int col;
 
@@ -27,7 +27,7 @@ public abstract class Element {
 
     // The world grid will call this method on every render loop
     // Update the latest position of the element given by the grid
-    public final void updateElement(int row, int col) {
+    public final void updateSelf(int row, int col) {
         this.row = row;
         this.col = col;
         update(row, col);
@@ -44,20 +44,39 @@ public abstract class Element {
         return grid.isEmptyAt(row + dir.y, col + dir.x);
     }
 
-    protected void move(Direction dir) {
-        grid.moveElement(row, col, row + dir.y, col + dir.x);
+    // Get the position of the cell that is 1 unit(cell) in the given direction
+    // with respect to this element
+    protected CellPosition getCellPosition(Direction dir) {
+        return new CellPosition(row + dir.y, col + dir.x);
     }
 
-    // Move this element in the direction of displacerDir to its target position
-    // Displace the element at the target position to its displaced position
-    protected void displace(Direction displacerDir, Direction displacedDir) {
-        CellPosition targetPos = new CellPosition(row + displacerDir.y, col + displacerDir.x);
-        CellPosition displacedPos = new CellPosition(targetPos.row + displacedDir.y, targetPos.col + displacedDir.x);
-        grid.displaceElement(new CellPosition(row, col), targetPos, displacedPos);
+    // Move by 1 cell in the given direction if the move is possible
+    private boolean move(Direction dir) {
+        CellPosition targetPos = getCellPosition(dir);
+        if (grid.inBounds(targetPos) && getElementAt(dir) != null) {
+            grid.moveElement(row, col, targetPos.row, targetPos.col);
+            return true;
+        }
+        return false;
     }
 
-    protected boolean sinksIn(Element element) {
-        // TODO: Update this rule with more realistic logic
-        return this instanceof Solid && element instanceof Liquid;
+    // Distance: number of cells to move in the given direction
+    protected void move(Direction dir, int distance) {
+        for (int i = 0; i < distance; i++) {
+            // Try to move this element by 1 cell in the given direction
+            boolean canMove = move(dir);
+            // If unable to move, stop trying to move further
+            if (!canMove) return;
+        }
     }
+
+    protected void swap(Direction dir) {
+        grid.swapElements(row, col, row + dir.y, col + dir.x);
+    }
+
+
+
+    // Check whether this element will sink in the given element
+    protected abstract boolean sinksIn(Element element);
+
 }

@@ -11,5 +11,8 @@ public abstract class Solid extends Element {
 
     }
 
-
+    @Override
+    protected boolean sinksIn(Element element) {
+        return element instanceof Liquid;
+    }
 }

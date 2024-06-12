@@ -18,23 +18,25 @@ public abstract class Granule extends Element {
 
     @Override
     protected boolean sinksIn(Element element) {
+        // All granules sink in liquids
         return element instanceof Liquid;
+    }
+
+    @Override
+    protected boolean tryMove(Direction dir) {
+        // If possible, sink in the element at the target position
+        if (sinksIn(getElementAt(dir))) {
+            swap(dir);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public void update(int row, int col) {
         Direction targetDirection = Direction.DOWN;
 
-        if (isCellEmpty(targetDirection)) {
-            move(targetDirection, fallRate);
-            return;
-        }
-
-        // If below is water, sink in water by swapping places with it
-        if (getElementAt(targetDirection) instanceof Water) {
-            swap(targetDirection);
-            return;
-        }
+        if (move(targetDirection, fallRate)) return;
 
         boolean canMoveDownLeft = isCellEmpty(Direction.DOWN_LEFT);
         boolean canMoveDownRight = isCellEmpty(Direction.DOWN_RIGHT);

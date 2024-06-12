@@ -15,6 +15,17 @@ public abstract class Liquid extends Element {
         fallRate = getFallRate();
         flowRate = getFlowRate();
     }
+
+    @Override
+    protected boolean tryMove(Direction dir) {
+        // If possible, sink in the element at the target position
+        if (sinksIn(getElementAt(dir))) {
+            swap(dir);
+            return true;
+        }
+        return false;
+    }
+
     @Override
     protected void update(int row, int col) {
         Direction targetDirection = Direction.DOWN;

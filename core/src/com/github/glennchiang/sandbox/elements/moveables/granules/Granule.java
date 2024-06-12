@@ -7,6 +7,7 @@ import com.github.glennchiang.sandbox.elements.moveables.MovableElement;
 import com.github.glennchiang.sandbox.elements.moveables.liquids.Liquid;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class Granule extends MovableElement {
@@ -18,14 +19,17 @@ public abstract class Granule extends MovableElement {
     }
 
     @Override
+    protected List<List<Move>> getMoves() {
+        return Arrays.asList(
+                Arrays.asList(() -> fall(Direction.DOWN)),
+                Arrays.asList(() -> fall(Direction.DOWN_LEFT),
+                        () -> fall(Direction.DOWN_RIGHT))
+        );
+    }
+
+    @Override
     protected void update(int row, int col) {
-        if (fall(Direction.DOWN)) return;
-        List<Move> moves = new ArrayList<>();
-        Move downLeft = () -> fall(Direction.DOWN_LEFT);
-        Move downRight = () -> fall(Direction.DOWN_RIGHT);
-        moves.add(downLeft);
-        moves.add(downRight);
-        randomMove(moves);
+        super.update(row, col);
     }
 
     @Override

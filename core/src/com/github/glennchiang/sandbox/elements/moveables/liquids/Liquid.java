@@ -4,13 +4,14 @@ import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.Element;
 import com.github.glennchiang.sandbox.elements.moveables.MovableElement;
-import com.github.glennchiang.sandbox.elements.solids.Solid;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class Liquid extends MovableElement {
-    protected final int flowRate; // Number of cells by which the element will move horizontally per frame
+    // Number of cells by which the element will move horizontally per frame
+    protected final int flowRate;
 
     public Liquid(Grid grid) {
         super(grid);
@@ -18,33 +19,22 @@ public abstract class Liquid extends MovableElement {
     }
 
     @Override
-    protected void update(int row, int col) {
-        if (fall(Direction.DOWN)) return;
-        List<Move> moves = new ArrayList<>();
-        Move downLeft = () -> fall(Direction.DOWN_LEFT);
-        Move downRight = () -> fall(Direction.DOWN_RIGHT);
-        moves.add(downLeft);
-        moves.add(downRight);
+    protected List<List<Move>> getMoves() {
+        return Arrays.asList(
+                Arrays.asList(() -> fall(Direction.DOWN)),
+                Arrays.asList(() -> fall(Direction.DOWN_LEFT),
+                        () -> fall(Direction.DOWN_RIGHT)),
+                Arrays.asList(() -> move(Direction.LEFT, flowRate),
+                        () -> move(Direction.RIGHT, flowRate))
+        );
+    }
 
-        if (!randomMove(moves)) {
-            moves.clear();
-            Move flowLeft = this::flowLeft;
-            Move flowRight = this::flowRight;
-            moves.add(flowLeft);
-            moves.add(flowRight);
-            randomMove(moves);
-        }
+    @Override
+    protected void update(int row, int col) {
+        super.update(row, col);
     }
 
     protected abstract int getFlowRate();
-
-    private boolean flowLeft() {
-        return move(Direction.LEFT, flowRate);
-    }
-
-    private boolean flowRight() {
-        return move(Direction.RIGHT, flowRate);
-    }
 
     @Override
     protected boolean tryStep(Direction dir) {

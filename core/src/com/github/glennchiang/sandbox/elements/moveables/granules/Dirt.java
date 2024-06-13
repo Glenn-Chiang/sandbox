@@ -20,7 +20,7 @@ public class Dirt extends Granule {
     @Override
     protected void update() {
         super.update();
-        if (isAdjacentTo(Water.class) || isAdjacentTo(Mud.class, 4)) {
+        if (isNeighbour(Water.class) || isNeighbour(Mud.class, 4)) {
             transformTo(ElementType.MUD);
         }
     }

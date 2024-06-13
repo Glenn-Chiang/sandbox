@@ -63,4 +63,9 @@ public abstract class Liquid extends MovableElement {
         }
         return false;
     }
+
+    @Override
+    protected boolean canCorrode() {
+        return false;
+    }
 }

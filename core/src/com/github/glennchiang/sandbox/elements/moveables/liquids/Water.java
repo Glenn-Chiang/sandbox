@@ -26,8 +26,10 @@ public class Water extends Liquid {
     @Override
     protected void update() {
         super.update();
-        if (isAdjacentTo(Acid.class)) {
-            transformTo(ElementType.ACID);
-        }
+    }
+
+    @Override
+    public void onContactAcid() {
+        transformTo(ElementType.ACID);
     }
 }

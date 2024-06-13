@@ -1,6 +1,9 @@
 package com.github.glennchiang.sandbox.elements.moveables.liquids;
 
 import com.github.glennchiang.sandbox.Grid;
+import com.github.glennchiang.sandbox.elements.Element;
+
+import java.util.List;
 
 public class Acid extends Liquid {
     private static final int fallRate = 2;
@@ -20,5 +23,14 @@ public class Acid extends Liquid {
 
     public Acid(Grid grid) {
         super(grid);
+        List<Element> neighbors = getNeighbors();
+        for (Element neighbor: neighbors) {
+            neighbor.onContactAcid();
+        }
+    }
+
+    @Override
+    public void onContactAcid() {
+        return;
     }
 }

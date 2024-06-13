@@ -8,4 +8,8 @@ public class Stone extends Solid {
         super(grid);
     }
 
+    @Override
+    public void onContactAcid() {
+        // corrode
+    }
 }

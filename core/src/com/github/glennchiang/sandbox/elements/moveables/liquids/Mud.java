@@ -21,4 +21,9 @@ public class Mud extends Liquid {
     public Mud(Grid grid) {
         super(grid);
     }
+
+    @Override
+    public void onContactAcid() {
+        return;
+    }
 }

@@ -5,6 +5,9 @@ import com.github.glennchiang.sandbox.CellPosition;
 import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Element {
 
     // Current position of this element in its grid
@@ -50,7 +53,7 @@ public abstract class Element {
     }
 
     // Check if this element is adjacent to at least [count] number of the given element
-    protected final boolean isAdjacentTo(Class<? extends Element> elementClass, int count) {
+    protected final boolean isNeighbour(Class<? extends Element> elementClass, int count) {
         for (Direction dir: Direction.values()) {
             if (elementClass.isInstance(getElementAt(dir))) {
                 count--;
@@ -60,12 +63,26 @@ public abstract class Element {
     }
 
     // Check if any of this element's immediate neighbours is an instance of the given element class
-    protected final boolean isAdjacentTo(Class<? extends Element> elementClass) {
-        return isAdjacentTo(elementClass, 1);
+    protected final boolean isNeighbour(Class<? extends Element> elementClass) {
+        return isNeighbour(elementClass, 1);
+    }
+
+    // Get neighboring elements
+    protected final List<Element> getNeighbors() {
+        List<Element> neighbours = new ArrayList<>();
+        for (Direction dir: Direction.values()) {
+            if (grid.inBounds(getCellPosition(dir)) && !isCellEmpty(dir)) {
+                neighbours.add(getElementAt(dir));
+            }
+        }
+        return neighbours;
     }
 
     // Replaces this element with the given element at its same position
     protected final void transformTo(ElementType elementType) {
         grid.setElement(row, col, elementType.createInstance(grid));
     }
+
+    // What will happen to the element on contact with acid
+    public abstract void onContactAcid();
 }

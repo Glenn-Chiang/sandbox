@@ -4,6 +4,7 @@ import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.Element;
 import com.github.glennchiang.sandbox.elements.moveables.MovableElement;
+import com.github.glennchiang.sandbox.elements.moveables.liquids.Acid;
 import com.github.glennchiang.sandbox.elements.moveables.liquids.Liquid;
 
 import java.util.Arrays;
@@ -42,5 +43,10 @@ public abstract class Granule extends MovableElement {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onContactAcid() {
+
     }
 }

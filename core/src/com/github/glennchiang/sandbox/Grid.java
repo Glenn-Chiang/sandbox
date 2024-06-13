@@ -46,6 +46,8 @@ public class Grid {
         Element temp = elementAt(rowA, colA);
         setElement(rowA, colA, elementAt(rowB, colB));
         setElement(rowB, colB, temp);
+        markVisited(rowA, colA);
+        markVisited(rowB, colB);
     }
 
     // Move element at targetPos to displacedPos, then move element at displacerPos to targetPos

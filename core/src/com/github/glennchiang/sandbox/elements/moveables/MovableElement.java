@@ -92,6 +92,7 @@ public abstract class MovableElement extends Element {
 
     protected final void swap(Direction dir) {
         grid.swapElements(row, col, row + dir.y, col + dir.x);
+        
     }
 
     // Check whether this element will sink in the given element

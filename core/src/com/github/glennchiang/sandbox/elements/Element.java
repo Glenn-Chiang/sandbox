@@ -49,14 +49,19 @@ public abstract class Element {
         return new CellPosition(row + dir.y, col + dir.x);
     }
 
-    // Check if any of this element's immediate neighbours is an instance of the given element class
-    protected final boolean isAdjacentTo(Class<? extends Element> elementClass) {
+    // Check if this element is adjacent to at least [count] number of the given element
+    protected final boolean isAdjacentTo(Class<? extends Element> elementClass, int count) {
         for (Direction dir: Direction.values()) {
             if (elementClass.isInstance(getElementAt(dir))) {
-                return true;
+                count--;
             }
         }
-        return false;
+        return count <= 0;
+    }
+
+    // Check if any of this element's immediate neighbours is an instance of the given element class
+    protected final boolean isAdjacentTo(Class<? extends Element> elementClass) {
+        return isAdjacentTo(elementClass, 1);
     }
 
     // Replaces this element with the given element at its same position

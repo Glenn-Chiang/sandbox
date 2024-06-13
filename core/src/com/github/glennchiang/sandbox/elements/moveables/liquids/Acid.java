@@ -1,9 +1,8 @@
 package com.github.glennchiang.sandbox.elements.moveables.liquids;
 
 import com.github.glennchiang.sandbox.Grid;
-import com.github.glennchiang.sandbox.elements.ElementType;
 
-public class Water extends Liquid {
+public class Acid extends Liquid {
     private static final int fallRate = 2;
     @Override
     protected int getFallRate() { return fallRate; }
@@ -19,15 +18,7 @@ public class Water extends Liquid {
         return density;
     }
 
-    public Water(Grid grid) {
+    public Acid(Grid grid) {
         super(grid);
-    }
-
-    @Override
-    protected void update() {
-        super.update();
-        if (isAdjacentTo(Acid.class)) {
-            transformTo(ElementType.ACID);
-        }
     }
 }

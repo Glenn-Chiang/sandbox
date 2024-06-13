@@ -29,11 +29,11 @@ public abstract class Element {
     public final void updateSelf(int row, int col) {
         this.row = row;
         this.col = col;
-        update(row, col);
+        update();
     }
 
     // Each element implements its own update behaviour
-    protected abstract void update(int row, int col);
+    protected abstract void update();
 
     protected final Element getElementAt(Direction dir) {
         return grid.elementAt(row + dir.y, col + dir.x);
@@ -49,4 +49,18 @@ public abstract class Element {
         return new CellPosition(row + dir.y, col + dir.x);
     }
 
+    // Check if any of this element's immediate neighbours is an instance of the given element class
+    protected final boolean isAdjacentTo(ElementType elementType) {
+        for (Direction dir: Direction.values()) {
+            if (getElementAt(dir).getElementType() == elementType) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Replaces this element with the given element at its same position
+    protected final void transformTo(ElementType elementType) {
+        grid.setElement(row, col, elementType.createInstance(grid));
+    }
 }

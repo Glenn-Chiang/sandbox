@@ -10,7 +10,7 @@ public abstract class Solid extends Element {
     }
 
     @Override
-    protected void update(int row, int col) {
+    protected void update() {
         // Do nothing
     }
 }

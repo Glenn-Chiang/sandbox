@@ -24,8 +24,8 @@ public abstract class Granule extends MovableElement {
     }
 
     @Override
-    protected void update(int row, int col) {
-        super.update(row, col);
+    protected void update() {
+        super.update();
     }
 
     @Override

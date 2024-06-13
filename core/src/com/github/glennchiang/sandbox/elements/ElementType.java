@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.moveables.granules.Dirt;
 import com.github.glennchiang.sandbox.elements.moveables.granules.Sand;
+import com.github.glennchiang.sandbox.elements.moveables.liquids.Mud;
 import com.github.glennchiang.sandbox.elements.moveables.liquids.Water;
 import com.github.glennchiang.sandbox.elements.solids.Stone;
 
@@ -33,6 +34,10 @@ public enum ElementType {
     WATER(Color.SKY) {
         @Override
         public Water createInstance(Grid grid) {return new Water(grid); }
+    },
+    MUD(Color.valueOf("6E2C00")) {
+        @Override
+        public Mud createInstance(Grid grid) { return new Mud(grid); }
     };
 
     public final Color color;

@@ -28,7 +28,7 @@ public abstract class MovableElement extends Element {
     }
 
     @Override
-    protected void update(int row, int col) {
+    protected void update() {
         iterateMoves();
     }
     protected interface Move {

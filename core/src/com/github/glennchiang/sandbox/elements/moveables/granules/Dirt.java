@@ -1,6 +1,8 @@
 package com.github.glennchiang.sandbox.elements.moveables.granules;
 
 import com.github.glennchiang.sandbox.Grid;
+import com.github.glennchiang.sandbox.elements.ElementType;
+import com.github.glennchiang.sandbox.elements.moveables.liquids.Water;
 
 public class Dirt extends Granule {
     private static final int fallRate = 2;
@@ -15,7 +17,10 @@ public class Dirt extends Granule {
     }
 
     @Override
-    protected void update(int row, int col) {
-        super.update(row, col);
+    protected void update() {
+        super.update();
+        if (isAdjacentTo(ElementType.WATER)) {
+            transformTo(ElementType.MUD);
+        }
     }
 }

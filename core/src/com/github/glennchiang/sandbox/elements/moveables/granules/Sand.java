@@ -14,7 +14,7 @@ public class Sand extends Granule {
     }
 
     @Override
-    protected void update(int row, int col) {
-        super.update(row, col);
+    protected void update() {
+        super.update();
     }
 }

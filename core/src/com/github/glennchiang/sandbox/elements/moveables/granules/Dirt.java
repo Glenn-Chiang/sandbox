@@ -3,7 +3,7 @@ package com.github.glennchiang.sandbox.elements.moveables.granules;
 import com.github.glennchiang.sandbox.Grid;
 
 public class Dirt extends Granule {
-    private final int fallRate = 1;
+    private static final int fallRate = 2;
 
     public Dirt(Grid grid) {
         super(grid);

@@ -6,16 +6,12 @@ import com.github.glennchiang.sandbox.elements.Element;
 import com.github.glennchiang.sandbox.elements.moveables.MovableElement;
 import com.github.glennchiang.sandbox.elements.moveables.liquids.Liquid;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public abstract class Granule extends MovableElement {
-    protected final int fallRate; // Number of cells by which the element will move down per frame
-
     public Granule(Grid grid) {
         super(grid);
-        fallRate = getFallRate();
     }
 
     @Override

@@ -73,6 +73,7 @@ public abstract class MovableElement extends Element {
     }
 
     // Move by 1 cell in the given direction if the move is possible
+    // Offset indicates how many steps have already been made in the given direction
     private boolean step(Direction dir) {
         CellPosition targetPos = getCellPosition(dir);
         if (!grid.inBounds(targetPos)) return false;
@@ -80,16 +81,22 @@ public abstract class MovableElement extends Element {
         // Move to target position if it is empty
         if (isCellEmpty(dir)) {
             grid.moveElement(row, col, targetPos.row, targetPos.col);
+            row = targetPos.row;
+            col = targetPos.col;
             return true;
         }
         // Check if there are other ways to move to target position, and move if possible
-        // e.g. sink or swap with element at target position
+        // e.g. swap with element at target position
         return tryStep(dir);
     }
 
     // Subclasses can implement other conditions and ways to move
     protected abstract boolean tryStep(Direction dir);
 
+    // Try to fall in the given direction
+    protected final boolean fall(Direction dir) {
+        return move(dir, fallRate);
+    }
     protected final void swap(Direction dir) {
         grid.swapElements(row, col, row + dir.y, col + dir.x);
 
@@ -97,9 +104,4 @@ public abstract class MovableElement extends Element {
 
     // Check whether this element will sink in the given element
     protected abstract boolean sinksIn(Element element);
-
-    // Try to fall in the given direction
-    protected final boolean fall(Direction dir) {
-        return move(dir, fallRate);
-    }
 }

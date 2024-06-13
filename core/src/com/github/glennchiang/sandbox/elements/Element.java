@@ -43,12 +43,10 @@ public abstract class Element {
         return grid.isEmptyAt(row + dir.y, col + dir.x);
     }
 
-    // Get the position of the cell that is 1 unit(cell) in the given direction
+    // Get the position of the cell that is 1 cell in the given direction
     // with respect to this element
     protected final CellPosition getCellPosition(Direction dir) {
         return new CellPosition(row + dir.y, col + dir.x);
     }
-
-
 
 }

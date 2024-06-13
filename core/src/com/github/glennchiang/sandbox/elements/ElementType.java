@@ -2,6 +2,7 @@ package com.github.glennchiang.sandbox.elements;
 
 import com.badlogic.gdx.graphics.Color;
 import com.github.glennchiang.sandbox.Grid;
+import com.github.glennchiang.sandbox.elements.moveables.granules.Dirt;
 import com.github.glennchiang.sandbox.elements.moveables.granules.Sand;
 import com.github.glennchiang.sandbox.elements.moveables.liquids.Water;
 import com.github.glennchiang.sandbox.elements.solids.Stone;
@@ -24,6 +25,10 @@ public enum ElementType {
         public Sand createInstance(Grid grid) {
             return new Sand(grid);
         }
+    },
+    DIRT(Color.BROWN) {
+        @Override
+        public Dirt createInstance(Grid grid) { return new Dirt(grid); }
     },
     WATER(Color.SKY) {
         @Override

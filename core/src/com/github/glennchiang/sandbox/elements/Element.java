@@ -50,9 +50,9 @@ public abstract class Element {
     }
 
     // Check if any of this element's immediate neighbours is an instance of the given element class
-    protected final boolean isAdjacentTo(ElementType elementType) {
+    protected final boolean isAdjacentTo(Class<? extends Element> elementClass) {
         for (Direction dir: Direction.values()) {
-            if (getElementAt(dir).getElementType() == elementType) {
+            if (elementClass.isInstance(getElementAt(dir))) {
                 return true;
             }
         }

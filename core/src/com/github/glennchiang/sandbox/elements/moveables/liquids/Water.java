@@ -3,13 +3,19 @@ package com.github.glennchiang.sandbox.elements.moveables.liquids;
 import com.github.glennchiang.sandbox.Grid;
 
 public class Water extends Liquid {
-    private final int fallRate = 1;
+    private static final int fallRate = 2;
     @Override
     protected int getFallRate() { return fallRate; }
-    private final int flowRate = 2;
+    private static final int flowRate = 2;
     @Override
     protected int getFlowRate() {
         return flowRate;
+    }
+
+    private static final int density = 1;
+    @Override
+    protected int getDensity() {
+        return density;
     }
 
     public Water(Grid grid) {

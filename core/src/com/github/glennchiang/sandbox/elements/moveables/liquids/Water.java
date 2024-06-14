@@ -30,6 +30,7 @@ public class Water extends Liquid {
 
     @Override
     public void onContactAcid() {
+        // Water will become acid on contact with acid
         transformTo(ElementType.ACID);
     }
 }

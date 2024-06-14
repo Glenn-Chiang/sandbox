@@ -21,16 +21,30 @@ public class Acid extends Liquid {
         return density;
     }
 
+    // When acid comes into contact with an element that it can corrode,
+    // the element will receive this amount of damage per frame
+    private static final int corrosionDamage = 1;
+
     public Acid(Grid grid) {
         super(grid);
+    }
+
+    @Override
+    protected void update() {
+        super.update();
+        // React with neighbouring elements
         List<Element> neighbors = getNeighbors();
         for (Element neighbor: neighbors) {
             neighbor.onContactAcid();
         }
     }
 
+    public static void corrode(Element element) {
+        element.takeDamage(corrosionDamage);
+    }
+
     @Override
     public void onContactAcid() {
-        return;
+        return; // Acid shouldn't react with itself
     }
 }

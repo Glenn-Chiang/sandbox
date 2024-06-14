@@ -48,6 +48,6 @@ public abstract class Granule extends MovableElement {
 
     @Override
     public void onContactAcid() {
-
+        Acid.corrode(this);
     }
 }

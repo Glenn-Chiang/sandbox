@@ -13,15 +13,17 @@ import java.util.List;
 
 public abstract class Liquid extends MovableElement {
     // Number of cells by which the element will move horizontally per frame
-    protected final int flowRate;
+    private final int flowRate;
     protected abstract int getFlowRate();
 
     // Determines which liquids sink in other liquids
-    protected final int density;
+    private final int density;
     protected abstract int getDensity();
 
+    private static final int durability = 0;
+
     public Liquid(Grid grid) {
-        super(grid);
+        super(grid, durability);
         flowRate = getFlowRate();
         density = getDensity();
     }
@@ -64,8 +66,4 @@ public abstract class Liquid extends MovableElement {
         return false;
     }
 
-    @Override
-    protected boolean canCorrode() {
-        return false;
-    }
 }

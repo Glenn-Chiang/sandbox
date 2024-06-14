@@ -21,8 +21,8 @@ public abstract class MovableElement extends Element {
     private final List<List<Move>> moves;
     protected abstract List<List<Move>> getMoves();
 
-    public MovableElement(Grid grid) {
-        super(grid);
+    public MovableElement(Grid grid, int durability) {
+        super(grid, durability);
         fallRate = getFallRate();
         moves = getMoves();
     }

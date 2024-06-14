@@ -11,8 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class Granule extends MovableElement {
+    private static final int durability = 1;
     public Granule(Grid grid) {
-        super(grid);
+        super(grid, durability);
     }
 
     @Override

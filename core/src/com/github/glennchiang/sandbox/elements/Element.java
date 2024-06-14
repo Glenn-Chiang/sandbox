@@ -23,8 +23,23 @@ public abstract class Element {
        return getElementType().color;
     }
 
-    public Element(Grid grid) {
+
+    // The current condition or "health" of the element, initially set to the element's static durability
+    // Taking damage reduces integrity. When integrity reaches 0, the element is destroyed.
+    private int integrity;
+
+    public Element(Grid grid, int durability) {
         this.grid = grid;
+        integrity = durability;
+    }
+    public final void takeDamage(int damage) {
+        integrity -= damage;
+        if (integrity <= 0) {
+            destroy();
+        }
+    }
+    private void destroy() {
+        grid.setElement(row, col, null);
     }
 
     // The world grid will call this method on every render loop

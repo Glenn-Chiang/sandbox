@@ -41,7 +41,5 @@ public abstract class Gas extends Fluid {
     }
 
     @Override
-    public void onContactAcid() {
-
-    }
+    public void onContactAcid() {}
 }

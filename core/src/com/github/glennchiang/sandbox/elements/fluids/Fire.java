@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.Element;
+import com.github.glennchiang.sandbox.elements.ElementType;
 import com.github.glennchiang.sandbox.elements.fluids.liquids.Liquid;
 
 import java.util.Arrays;
@@ -44,12 +45,12 @@ public class Fire extends Fluid {
         // Life decreases every frame. When life reaches 0, fire extinguishes.
         life -= Gdx.graphics.getDeltaTime();
         if (life <= 0) {
-            destroy();
+            extinguish();
         }
 
         for (Element neighbor: getNeighbors()) {
             if (neighbor instanceof Liquid) {
-                destroy();
+                extinguish();
             }
         }
 
@@ -60,6 +61,10 @@ public class Fire extends Fluid {
                 break;
             }
         }
+    }
+
+    private void extinguish() {
+        transformTo(ElementType.SMOKE);
     }
 
     @Override

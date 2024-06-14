@@ -2,6 +2,7 @@ package com.github.glennchiang.sandbox.elements;
 
 import com.badlogic.gdx.graphics.Color;
 import com.github.glennchiang.sandbox.Grid;
+import com.github.glennchiang.sandbox.elements.fluids.gas.Smoke;
 import com.github.glennchiang.sandbox.elements.fluids.granules.Dirt;
 import com.github.glennchiang.sandbox.elements.fluids.granules.Sand;
 import com.github.glennchiang.sandbox.elements.fluids.liquids.Acid;
@@ -43,6 +44,10 @@ public enum ElementType {
     ACID(Color.CHARTREUSE) {
         @Override
         public Acid createInstance(Grid grid) { return new Acid(grid); }
+    },
+    SMOKE(Color.DARK_GRAY) {
+        @Override
+        public Smoke createInstance(Grid grid) { return new Smoke(grid); }
     }
     ;
 

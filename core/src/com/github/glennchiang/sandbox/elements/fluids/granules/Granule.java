@@ -18,7 +18,7 @@ public abstract class Granule extends Fluid {
     }
 
     @Override
-    protected List<List<Move>> getMoves() {
+    protected final List<List<Move>> getMoves() {
         return Arrays.asList(
                 Arrays.asList(() -> fall(Direction.DOWN)),
                 Arrays.asList(() -> fall(Direction.DOWN_LEFT),

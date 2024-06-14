@@ -11,18 +11,18 @@ import java.util.List;
 public abstract class Gas extends Fluid {
     private static final int durability = 0;
 
-    public Gas(Grid grid, int fallRate, int flowRate) {
-        super(grid, durability, fallRate, flowRate);
+    public Gas(Grid grid, int floatRate, int flowRate) {
+        super(grid, durability, floatRate, flowRate);
     }
 
     @Override
     protected List<List<Move>> getMoves() {
         return Arrays.asList(
-                Arrays.asList(() -> fall(Direction.DOWN)),
-                Arrays.asList(() -> fall(Direction.DOWN_LEFT),
-                        () -> fall(Direction.DOWN_RIGHT)),
-                Arrays.asList(() -> flow(Direction.LEFT),
-                        () -> flow(Direction.RIGHT))
+                Arrays.asList(() -> fall(Direction.UP),
+                        () -> fall(Direction.UP_LEFT),
+                        () -> fall(Direction.UP_RIGHT))
+//                Arrays.asList(() -> fall(Direction.UP_LEFT),
+//                        () -> fall(Direction.UP_RIGHT))
         );
     }
 

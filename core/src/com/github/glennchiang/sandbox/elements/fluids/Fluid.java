@@ -10,10 +10,10 @@ import java.util.List;
 import java.util.Random;
 
 public abstract class Fluid extends Element {
-    // Number of cells by which the element will move down, down-left or down-right per frame
+    // Number of cells by which the element will move vertically per frame
     private final int fallRate;
 
-    // Number of cells by which the element will move left or right per frame
+    // Number of cells by which the element will move horizontally per frame
     private final int flowRate;
 
     // 2D list of moves ordered by priority

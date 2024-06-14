@@ -6,10 +6,10 @@ import com.github.glennchiang.sandbox.elements.fluids.liquids.Mud;
 import com.github.glennchiang.sandbox.elements.fluids.liquids.Water;
 
 public class Dirt extends Granule {
+    private static final boolean flammable = true;
     private static final int fallRate = 1;
-
     public Dirt(Grid grid) {
-        super(grid, fallRate);
+        super(grid, flammable, fallRate);
     }
 
     @Override

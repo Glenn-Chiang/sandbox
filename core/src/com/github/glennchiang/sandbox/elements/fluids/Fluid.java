@@ -23,8 +23,8 @@ public abstract class Fluid extends Element {
     private final List<List<Move>> moves;
     protected abstract List<List<Move>> getMoves();
 
-    public Fluid(Grid grid, int durability, int fallRate, int flowRate) {
-        super(grid, durability);
+    public Fluid(Grid grid, int durability, boolean flammable, int fallRate, int flowRate) {
+        super(grid, durability, flammable);
         moves = getMoves();
         this.fallRate = fallRate;
         this.flowRate = flowRate;

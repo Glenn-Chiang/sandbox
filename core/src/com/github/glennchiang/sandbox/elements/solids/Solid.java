@@ -5,8 +5,8 @@ import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.Element;
 
 public abstract class Solid extends Element {
-    public Solid(Grid grid, int durability) {
-        super(grid, durability);
+    public Solid(Grid grid, int durability, boolean flammable) {
+        super(grid, durability, flammable);
     }
 
     @Override

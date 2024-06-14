@@ -28,9 +28,12 @@ public abstract class Element {
     // Taking damage reduces integrity. When integrity reaches 0, the element is destroyed.
     private int integrity;
 
-    public Element(Grid grid, int durability) {
+    private final boolean flammable;
+
+    public Element(Grid grid, int durability, boolean flammable) {
         this.grid = grid;
         integrity = durability;
+        this.flammable = flammable;
     }
     public final void takeDamage(int damage) {
         integrity -= damage;
@@ -98,6 +101,15 @@ public abstract class Element {
         grid.setElement(row, col, elementType.createInstance(grid));
     }
 
-    // What will happen to the element on contact with acid
+    // How the element will react with acid
     public abstract void onContactAcid();
+
+    // How the element will react with fire
+    public void onContactFire() {
+        
+    }
+
+    protected final void ignite() {
+
+    }
 }

@@ -9,8 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class Gas extends Fluid {
-    public Gas(Grid grid, int floatRate, int flowRate) {
-        super(grid, 0, floatRate, flowRate);
+    public Gas(Grid grid, boolean flammable, int floatRate, int flowRate) {
+        super(grid, 0, flammable, floatRate, flowRate);
     }
 
     @Override

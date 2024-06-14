@@ -7,23 +7,17 @@ import com.github.glennchiang.sandbox.elements.Element;
 import java.util.Arrays;
 import java.util.List;
 
-// TODO: Implement behaviour
 public class Fire extends Fluid {
+    private static final int durability = 0;
+    private static final int fallRate = 1;
+    private static final int flowRate = 0;
+    private static final boolean flammable = false;
     private static final int lifespan = 40; // Number of frames fire will exist before it extinguishes
     private int life = lifespan; //Remaining lifespan
+    private static final int burnDamage = 1;
 
     public Fire(Grid grid) {
-        super(grid, 0, 1, 0);
-    }
-
-    @Override
-    protected void update() {
-        super.update();
-        // Life decreases every frame. When life reaches 0, fire extinguishes.
-        life -= 1;
-        if (life == 0) {
-            destroy();
-        }
+        super(grid, durability, flammable, fallRate, flowRate);
     }
 
     @Override
@@ -38,9 +32,31 @@ public class Fire extends Fluid {
     }
 
     @Override
+    protected void update() {
+        super.update();
+        // Life decreases every frame. When life reaches 0, fire extinguishes.
+        life -= 1;
+        if (life == 0) {
+            destroy();
+        }
+        // React with neighbouring elements
+        List<Element> neighbors = getNeighbors();
+        for (Element neighbor: neighbors) {
+
+        }
+    }
+
+    public static void burn(Element element) {
+        element.takeDamage(burnDamage);
+    }
+
+    @Override
     protected boolean sinksIn(Element element) {
         return false;
     }
+
+    @Override
+    public void onContactFire() {}
 
     @Override
     public void onContactAcid() {}

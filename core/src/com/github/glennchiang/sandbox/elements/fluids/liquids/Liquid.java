@@ -14,13 +14,10 @@ import java.util.List;
 public abstract class Liquid extends Fluid {
     // Determines which liquids sink in other liquids
     private final int density;
-    protected abstract int getDensity();
 
-    private static final int durability = 0;
-
-    public Liquid(Grid grid, int fallRate, int flowRate) {
-        super(grid, durability, fallRate, flowRate);
-        density = getDensity();
+    public Liquid(Grid grid, boolean flammable, int fallRate, int flowRate, int density) {
+        super(grid, 0, flammable, fallRate, flowRate);
+        this.density = density;
     }
 
     @Override
@@ -51,4 +48,9 @@ public abstract class Liquid extends Fluid {
         return element instanceof Gas;
     }
 
+    @Override
+    public void onContactFire() {
+        // TODO: Different liquids should react differently?
+        destroy();
+    }
 }

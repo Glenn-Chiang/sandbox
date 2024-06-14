@@ -5,8 +5,9 @@ import com.github.glennchiang.sandbox.elements.fluids.liquids.Acid;
 
 public class Stone extends Solid {
     private static final int durability = 200;
+    private static final boolean flammable = false;
     public Stone(Grid grid) {
-        super(grid, durability);
+        super(grid, 200, false);
     }
 
     @Override

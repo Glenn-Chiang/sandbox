@@ -8,13 +8,10 @@ public class Water extends Liquid {
     private static final int flowRate = 2;
 
     private static final int density = 1;
-    @Override
-    protected int getDensity() {
-        return density;
-    }
+    private static final boolean flammable = false;
 
     public Water(Grid grid) {
-        super(grid, fallRate, flowRate);
+        super(grid, flammable, fallRate, flowRate, density);
     }
 
     @Override

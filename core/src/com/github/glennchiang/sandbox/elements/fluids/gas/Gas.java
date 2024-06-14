@@ -9,10 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class Gas extends Fluid {
-    private static final int durability = 0;
-
     public Gas(Grid grid, int floatRate, int flowRate) {
-        super(grid, durability, floatRate, flowRate);
+        super(grid, 0, floatRate, flowRate);
     }
 
     @Override

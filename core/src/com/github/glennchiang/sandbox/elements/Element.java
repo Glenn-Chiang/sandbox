@@ -38,7 +38,7 @@ public abstract class Element {
             destroy();
         }
     }
-    private void destroy() {
+    protected final void destroy() {
         grid.setElement(row, col, null);
     }
 

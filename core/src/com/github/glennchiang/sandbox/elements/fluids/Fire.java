@@ -1,8 +1,10 @@
 package com.github.glennchiang.sandbox.elements.fluids;
 
+import com.badlogic.gdx.Gdx;
 import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.Element;
+import com.github.glennchiang.sandbox.elements.fluids.liquids.Liquid;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,8 +14,8 @@ public class Fire extends Fluid {
     private static final int fallRate = 1;
     private static final int flowRate = 1;
     private static final boolean flammable = false;
-    private static final int lifespan = 60; // Number of frames fire will exist before it extinguishes
-    private int life = lifespan; //Remaining lifespan
+    private static final float lifespan = 1; // Number of seconds fire will exist before extinguishing
+    private float life = lifespan; //Remaining lifespan
     public static final int burnDamage = 1;
 
     private static final List<Direction> spreadDirections = Arrays.asList(Direction.UP, Direction.UP_LEFT,
@@ -40,19 +42,24 @@ public class Fire extends Fluid {
         super.update();
 
         // Life decreases every frame. When life reaches 0, fire extinguishes.
-        life -= 1;
-        if (life == 0) {
+        life -= Gdx.graphics.getDeltaTime();
+        if (life <= 0) {
             destroy();
         }
-        // React with neighbouring elements
-        List<Element> neighbors = getNeighbors(spreadDirections);
-        for (Element neighbor: neighbors) {
-            if (Math.random() < 0.5) {
+
+        for (Element neighbor: getNeighbors()) {
+            if (neighbor instanceof Liquid) {
+                destroy();
+            }
+        }
+
+        // Spread to neighboring elements
+        for (Element neighbor: getNeighbors(spreadDirections)) {
+            if (Math.random() < 0.5) { // Random chance to spread or not spread each frame
                 neighbor.onContactFire();
                 break;
             }
         }
-
     }
 
     @Override

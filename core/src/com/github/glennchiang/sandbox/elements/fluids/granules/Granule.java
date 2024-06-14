@@ -39,16 +39,6 @@ public abstract class Granule extends Fluid {
     }
 
     @Override
-    protected boolean tryStep(Direction dir) {
-        // If possible, sink in the element at the target position
-        if (sinksIn(getElementAt(dir))) {
-            swap(dir);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     public void onContactAcid() {
         Acid.corrode(this);
     }

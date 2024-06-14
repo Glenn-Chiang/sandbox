@@ -40,16 +40,6 @@ public abstract class Liquid extends Fluid {
     }
 
     @Override
-    protected boolean tryStep(Direction dir) {
-        // If possible, sink in the element at the target position
-        if (sinksIn(getElementAt(dir))) {
-            swap(dir);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     protected boolean sinksIn(Element element) {
         if (element instanceof Solid || element instanceof Granule) {
             return false;

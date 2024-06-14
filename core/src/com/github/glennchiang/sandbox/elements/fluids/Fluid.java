@@ -88,13 +88,13 @@ public abstract class Fluid extends Element {
             col = targetPos.col;
             return true;
         }
-        // Check if there are other ways to move to target position, and move if possible
-        // e.g. swap with element at target position
-        return tryStep(dir);
-    }
 
-    // Subclasses can implement other conditions and ways to move
-    protected abstract boolean tryStep(Direction dir);
+        if (sinksIn(getElementAt(dir))) {
+            swap(dir);
+            return true;
+        }
+        return false;
+    }
 
     // Try to fall in the given direction
     protected final boolean fall(Direction dir) {

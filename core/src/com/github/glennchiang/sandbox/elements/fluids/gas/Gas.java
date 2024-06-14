@@ -25,11 +25,6 @@ public abstract class Gas extends Fluid {
     }
 
     @Override
-    protected boolean tryStep(Direction dir) {
-        return false;
-    }
-
-    @Override
     protected boolean sinksIn(Element element) {
         return false;
     }

@@ -47,10 +47,4 @@ public abstract class Liquid extends Fluid {
         }
         return element instanceof Gas;
     }
-
-    @Override
-    public void onContactFire() {
-        // TODO: Different liquids should react differently?
-        destroy();
-    }
 }

@@ -14,7 +14,7 @@ public class Fire extends Fluid {
     private static final boolean flammable = false;
     private static final int lifespan = 40; // Number of frames fire will exist before it extinguishes
     private int life = lifespan; //Remaining lifespan
-    private static final int burnDamage = 1;
+    public static final int burnDamage = 1;
 
     public Fire(Grid grid) {
         super(grid, durability, flammable, fallRate, flowRate);
@@ -42,12 +42,8 @@ public class Fire extends Fluid {
         // React with neighbouring elements
         List<Element> neighbors = getNeighbors();
         for (Element neighbor: neighbors) {
-
+            neighbor.onContactFire(this);
         }
-    }
-
-    public static void burn(Element element) {
-        element.takeDamage(burnDamage);
     }
 
     @Override
@@ -56,7 +52,7 @@ public class Fire extends Fluid {
     }
 
     @Override
-    public void onContactFire() {}
+    public void onContactFire(Fire fire) {}
 
     @Override
     public void onContactAcid() {}

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.github.glennchiang.sandbox.CellPosition;
 import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
+import com.github.glennchiang.sandbox.elements.fluids.Fire;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +24,13 @@ public abstract class Element {
        return getElementType().color;
     }
 
-
     // The current condition or "health" of the element, initially set to the element's static durability
     // Taking damage reduces integrity. When integrity reaches 0, the element is destroyed.
     private int integrity;
 
     private final boolean flammable;
+
+    private boolean destroyed = false;
 
     public Element(Grid grid, int durability, boolean flammable) {
         this.grid = grid;
@@ -43,6 +45,7 @@ public abstract class Element {
     }
     protected final void destroy() {
         grid.setElement(row, col, null);
+        destroyed = true;
     }
 
     // The world grid will call this method on every render loop
@@ -105,11 +108,11 @@ public abstract class Element {
     public abstract void onContactAcid();
 
     // How the element will react with fire
-    public void onContactFire() {
-        
-    }
-
-    protected final void ignite() {
-
+    public void onContactFire(Fire fire) {
+        if (!flammable) return;
+        takeDamage(Fire.burnDamage);
+        if (destroyed) {
+            transformTo(ElementType.FIRE);
+        }
     }
 }

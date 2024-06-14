@@ -3,15 +3,14 @@ package com.github.glennchiang.sandbox.elements.moveables.liquids;
 import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.Element;
-import com.github.glennchiang.sandbox.elements.moveables.MovableElement;
+import com.github.glennchiang.sandbox.elements.moveables.Fluid;
 import com.github.glennchiang.sandbox.elements.moveables.granules.Granule;
 import com.github.glennchiang.sandbox.elements.solids.Solid;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class Liquid extends MovableElement {
+public abstract class Liquid extends Fluid {
     // Number of cells by which the element will move horizontally per frame
     private final int flowRate;
     protected abstract int getFlowRate();

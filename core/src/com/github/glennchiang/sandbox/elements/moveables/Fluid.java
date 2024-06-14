@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public abstract class MovableElement extends Element {
+public abstract class Fluid extends Element {
     // Number of cells by which the element will move down per frame
     private final int fallRate;
     protected abstract int getFallRate();
@@ -21,7 +21,7 @@ public abstract class MovableElement extends Element {
     private final List<List<Move>> moves;
     protected abstract List<List<Move>> getMoves();
 
-    public MovableElement(Grid grid, int durability) {
+    public Fluid(Grid grid, int durability) {
         super(grid, durability);
         fallRate = getFallRate();
         moves = getMoves();

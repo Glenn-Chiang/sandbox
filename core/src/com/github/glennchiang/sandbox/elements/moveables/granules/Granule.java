@@ -3,15 +3,15 @@ package com.github.glennchiang.sandbox.elements.moveables.granules;
 import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.Element;
-import com.github.glennchiang.sandbox.elements.moveables.MovableElement;
+import com.github.glennchiang.sandbox.elements.moveables.Fluid;
 import com.github.glennchiang.sandbox.elements.moveables.liquids.Acid;
 import com.github.glennchiang.sandbox.elements.moveables.liquids.Liquid;
 
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class Granule extends MovableElement {
-    private static final int durability = 1;
+public abstract class Granule extends Fluid {
+    private static final int durability = 20;
     public Granule(Grid grid) {
         super(grid, durability);
     }

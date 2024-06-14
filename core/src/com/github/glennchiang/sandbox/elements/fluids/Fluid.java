@@ -1,4 +1,4 @@
-package com.github.glennchiang.sandbox.elements.moveables;
+package com.github.glennchiang.sandbox.elements.fluids;
 
 import com.github.glennchiang.sandbox.CellPosition;
 import com.github.glennchiang.sandbox.Direction;

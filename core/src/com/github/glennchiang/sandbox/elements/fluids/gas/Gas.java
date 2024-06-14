@@ -1,12 +1,13 @@
-package com.github.glennchiang.sandbox.elements.moveables;
+package com.github.glennchiang.sandbox.elements.fluids.gas;
 
 import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.Element;
+import com.github.glennchiang.sandbox.elements.fluids.Fluid;
 
 import java.util.List;
 
-public class Gas  extends Fluid {
+public abstract class Gas extends Fluid {
     private static final int durability = 0;
 
     public Gas(Grid grid) {

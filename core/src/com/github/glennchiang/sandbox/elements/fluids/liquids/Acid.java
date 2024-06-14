@@ -1,4 +1,4 @@
-package com.github.glennchiang.sandbox.elements.moveables.liquids;
+package com.github.glennchiang.sandbox.elements.fluids.liquids;
 
 import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.Element;

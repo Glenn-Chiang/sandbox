@@ -1,10 +1,10 @@
-package com.github.glennchiang.sandbox.elements.moveables.liquids;
+package com.github.glennchiang.sandbox.elements.fluids.liquids;
 
 import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.Element;
-import com.github.glennchiang.sandbox.elements.moveables.Fluid;
-import com.github.glennchiang.sandbox.elements.moveables.granules.Granule;
+import com.github.glennchiang.sandbox.elements.fluids.Fluid;
+import com.github.glennchiang.sandbox.elements.fluids.granules.Granule;
 import com.github.glennchiang.sandbox.elements.solids.Solid;
 
 import java.util.Arrays;

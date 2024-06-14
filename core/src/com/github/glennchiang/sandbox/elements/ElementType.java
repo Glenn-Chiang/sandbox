@@ -2,11 +2,11 @@ package com.github.glennchiang.sandbox.elements;
 
 import com.badlogic.gdx.graphics.Color;
 import com.github.glennchiang.sandbox.Grid;
-import com.github.glennchiang.sandbox.elements.moveables.granules.Dirt;
-import com.github.glennchiang.sandbox.elements.moveables.granules.Sand;
-import com.github.glennchiang.sandbox.elements.moveables.liquids.Acid;
-import com.github.glennchiang.sandbox.elements.moveables.liquids.Mud;
-import com.github.glennchiang.sandbox.elements.moveables.liquids.Water;
+import com.github.glennchiang.sandbox.elements.fluids.granules.Dirt;
+import com.github.glennchiang.sandbox.elements.fluids.granules.Sand;
+import com.github.glennchiang.sandbox.elements.fluids.liquids.Acid;
+import com.github.glennchiang.sandbox.elements.fluids.liquids.Mud;
+import com.github.glennchiang.sandbox.elements.fluids.liquids.Water;
 import com.github.glennchiang.sandbox.elements.solids.Stone;
 
 public enum ElementType {

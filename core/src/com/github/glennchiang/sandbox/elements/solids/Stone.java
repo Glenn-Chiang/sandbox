@@ -1,8 +1,7 @@
 package com.github.glennchiang.sandbox.elements.solids;
 
 import com.github.glennchiang.sandbox.Grid;
-import com.github.glennchiang.sandbox.elements.moveables.liquids.Acid;
-import com.github.glennchiang.sandbox.elements.solids.Solid;
+import com.github.glennchiang.sandbox.elements.fluids.liquids.Acid;
 
 public class Stone extends Solid {
     private static final int durability = 200;

@@ -10,9 +10,11 @@ import java.util.List;
 import java.util.Random;
 
 public abstract class Fluid extends Element {
-    // Number of cells by which the element will move down per frame
+    // Number of cells by which the element will move down, down-left or down-right per frame
     private final int fallRate;
-    protected abstract int getFallRate();
+
+    // Number of cells by which the element will move left or right per frame
+    private final int flowRate;
 
     // 2D list of moves ordered by priority
     // The inner lists are arranged in order of priority from first to last
@@ -21,10 +23,11 @@ public abstract class Fluid extends Element {
     private final List<List<Move>> moves;
     protected abstract List<List<Move>> getMoves();
 
-    public Fluid(Grid grid, int durability) {
+    public Fluid(Grid grid, int durability, int fallRate, int flowRate) {
         super(grid, durability);
-        fallRate = getFallRate();
         moves = getMoves();
+        this.fallRate = fallRate;
+        this.flowRate = flowRate;
     }
 
     @Override
@@ -97,6 +100,11 @@ public abstract class Fluid extends Element {
     protected final boolean fall(Direction dir) {
         return move(dir, fallRate);
     }
+
+    protected final boolean flow(Direction dir) {
+        return move(dir, flowRate);
+    }
+
     protected final void swap(Direction dir) {
         grid.swapElements(row, col, row + dir.y, col + dir.x);
 

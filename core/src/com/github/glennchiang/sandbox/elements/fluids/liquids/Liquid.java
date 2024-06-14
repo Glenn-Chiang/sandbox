@@ -11,19 +11,14 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class Liquid extends Fluid {
-    // Number of cells by which the element will move horizontally per frame
-    private final int flowRate;
-    protected abstract int getFlowRate();
-
     // Determines which liquids sink in other liquids
     private final int density;
     protected abstract int getDensity();
 
     private static final int durability = 0;
 
-    public Liquid(Grid grid) {
-        super(grid, durability);
-        flowRate = getFlowRate();
+    public Liquid(Grid grid, int fallRate, int flowRate) {
+        super(grid, durability, fallRate, flowRate);
         density = getDensity();
     }
 
@@ -33,8 +28,8 @@ public abstract class Liquid extends Fluid {
                 Arrays.asList(() -> fall(Direction.DOWN)),
                 Arrays.asList(() -> fall(Direction.DOWN_LEFT),
                         () -> fall(Direction.DOWN_RIGHT)),
-                Arrays.asList(() -> move(Direction.LEFT, flowRate),
-                        () -> move(Direction.RIGHT, flowRate))
+                Arrays.asList(() -> flow(Direction.LEFT),
+                        () -> flow(Direction.RIGHT))
         );
     }
 

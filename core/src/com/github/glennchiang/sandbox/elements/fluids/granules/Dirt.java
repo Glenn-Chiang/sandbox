@@ -9,12 +9,7 @@ public class Dirt extends Granule {
     private static final int fallRate = 1;
 
     public Dirt(Grid grid) {
-        super(grid);
-    }
-
-    @Override
-    protected int getFallRate() {
-        return fallRate;
+        super(grid, fallRate);
     }
 
     @Override

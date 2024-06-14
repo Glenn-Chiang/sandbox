@@ -12,8 +12,9 @@ import java.util.List;
 
 public abstract class Granule extends Fluid {
     private static final int durability = 20;
-    public Granule(Grid grid) {
-        super(grid, durability);
+    public Granule(Grid grid, int fallRate) {
+        super(grid, durability, fallRate, 0);
+
     }
 
     @Override

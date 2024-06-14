@@ -6,21 +6,17 @@ import com.github.glennchiang.sandbox.elements.Element;
 
 import java.util.List;
 
+// TODO: Implement behaviour
 public class Fire extends Fluid {
     private static final int durability = 0;
 
     public Fire(Grid grid) {
-        super(grid, durability);
+        super(grid, durability, 0, 0);
     }
 
     @Override
     protected List<List<Move>> getMoves() {
         return null;
-    }
-
-    @Override
-    protected int getFallRate() {
-        return 0;
     }
 
     @Override

@@ -17,7 +17,7 @@ public enum ElementType {
           return null;
       }
     },
-    STONE(Color.GRAY) {
+    STONE(Color.SLATE) {
         @Override
         public Stone createInstance(Grid grid) {
             return new Stone(grid);

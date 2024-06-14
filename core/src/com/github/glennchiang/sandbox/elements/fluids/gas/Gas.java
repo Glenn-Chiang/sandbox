@@ -21,8 +21,6 @@ public abstract class Gas extends Fluid {
                 Arrays.asList(() -> fall(Direction.UP),
                         () -> fall(Direction.UP_LEFT),
                         () -> fall(Direction.UP_RIGHT))
-//                Arrays.asList(() -> fall(Direction.UP_LEFT),
-//                        () -> fall(Direction.UP_RIGHT))
         );
     }
 

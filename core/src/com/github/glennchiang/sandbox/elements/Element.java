@@ -21,15 +21,19 @@ public abstract class Element {
     }
 
     public Color getColor() {
-       return getElementType().color;
+        if (ignited) {
+            return Color.CORAL;
+        } else {
+            return getElementType().color;
+        }
     }
 
     // The current condition or "health" of the element, initially set to the element's static durability
     // Taking damage reduces integrity. When integrity reaches 0, the element is destroyed.
     private int integrity;
 
-    private final boolean flammable;
-
+    public final boolean flammable;
+    private boolean ignited = false;
     private boolean destroyed = false;
 
     public Element(Grid grid, int durability, boolean flammable) {
@@ -53,6 +57,7 @@ public abstract class Element {
     public final void updateSelf(int row, int col) {
         this.row = row;
         this.col = col;
+        if (flammable && ignited) burn();
         update();
     }
 
@@ -99,6 +104,16 @@ public abstract class Element {
         return neighbours;
     }
 
+    protected final List<Element> getNeighbors(List<Direction> directions) {
+        List<Element> neighbours = new ArrayList<>();
+        for (Direction dir: directions) {
+            if (grid.inBounds(getCellPosition(dir)) && !isCellEmpty(dir)) {
+                neighbours.add(getElementAt(dir));
+            }
+        }
+        return neighbours;
+    }
+
     // Replaces this element with the given element at its same position
     protected final void transformTo(ElementType elementType) {
         grid.setElement(row, col, elementType.createInstance(grid));
@@ -108,7 +123,13 @@ public abstract class Element {
     public abstract void onContactAcid();
 
     // How the element will react with fire
-    public void onContactFire(Fire fire) {
+    public void onContactFire() {
+        if (flammable) {
+            ignited = true;
+        }
+    }
+
+    private void burn() {
         if (!flammable) return;
         takeDamage(Fire.burnDamage);
         if (destroyed) {

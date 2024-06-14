@@ -10,6 +10,7 @@ import com.github.glennchiang.sandbox.elements.fluids.liquids.Acid;
 import com.github.glennchiang.sandbox.elements.fluids.liquids.Mud;
 import com.github.glennchiang.sandbox.elements.fluids.liquids.Water;
 import com.github.glennchiang.sandbox.elements.solids.Stone;
+import com.github.glennchiang.sandbox.elements.solids.Wood;
 
 public enum ElementType {
     EMPTY(Color.WHITE) {
@@ -23,6 +24,10 @@ public enum ElementType {
         public Stone createInstance(Grid grid) {
             return new Stone(grid);
         }
+    },
+    WOOD(Color.valueOf("#7E5109")) {
+      @Override
+      public Wood createInstance(Grid grid) { return new Wood(grid); }
     },
     SAND(Color.valueOf("F7DC6F")) {
         @Override

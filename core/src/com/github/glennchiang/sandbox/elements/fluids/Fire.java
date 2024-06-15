@@ -19,7 +19,7 @@ public class Fire extends Fluid {
     private float life = lifespan; //Remaining lifespan
     public static final int burnDamage = 1;
 
-    private static final List<Direction> spreadDirections = Arrays.asList(Direction.UP, Direction.UP_LEFT,
+    public static final List<Direction> spreadDirections = Arrays.asList(Direction.UP, Direction.UP_LEFT,
                                                             Direction.UP_RIGHT, Direction.LEFT, Direction.RIGHT);
 
     public Fire(Grid grid) {
@@ -56,15 +56,14 @@ public class Fire extends Fluid {
 
         // Spread to neighboring elements
         for (Element neighbor: getNeighbors(spreadDirections)) {
-            if (Math.random() < 0.5) { // Random chance to spread or not spread each frame
-                neighbor.onContactFire();
-                break;
-            }
+            neighbor.burn();
         }
     }
 
     private void extinguish() {
-        transformTo(ElementType.SMOKE);
+        destroy();
+//        transformTo(ElementType.SMOKE);
+
     }
 
     @Override

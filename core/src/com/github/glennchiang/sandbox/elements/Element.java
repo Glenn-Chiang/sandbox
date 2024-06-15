@@ -16,24 +16,12 @@ public abstract class Element {
     protected int row;
     protected int col;
 
-    public ElementType getElementType() {
-        return ElementType.valueOf(this.getClass().getSimpleName().toUpperCase());
-    }
-
-    public Color getColor() {
-        if (ignited) {
-            return Color.CORAL;
-        } else {
-            return getElementType().color;
-        }
-    }
-
     // The current condition or "health" of the element, initially set to the element's static durability
     // Taking damage reduces integrity. When integrity reaches 0, the element is destroyed.
     private int integrity;
 
     public final boolean flammable;
-    private boolean ignited = false;
+    private boolean burning = false;
     private boolean destroyed = false;
 
     public Element(Grid grid, int durability, boolean flammable) {
@@ -41,6 +29,18 @@ public abstract class Element {
         integrity = durability;
         this.flammable = flammable;
     }
+    public ElementType getElementType() {
+        return ElementType.valueOf(this.getClass().getSimpleName().toUpperCase());
+    }
+
+    public Color getColor() {
+        if (burning) {
+            return Color.CORAL;
+        } else {
+            return getElementType().color;
+        }
+    }
+
     public final void takeDamage(int damage) {
         integrity -= damage;
         if (integrity <= 0) {
@@ -57,7 +57,9 @@ public abstract class Element {
     public final void updateSelf(int row, int col) {
         this.row = row;
         this.col = col;
-        if (flammable && ignited) burn();
+
+        if (flammable && burning) burn();
+
         update();
     }
 
@@ -122,16 +124,19 @@ public abstract class Element {
     // How the element will react with acid
     public abstract void onContactAcid();
 
-    // How the element will react with fire
-    public void onContactFire() {
-        if (flammable) {
-            ignited = true;
-        }
-    }
-
-    private void burn() {
+    public final void burn() {
         if (!flammable) return;
+
+        burning = true;
         takeDamage(Fire.burnDamage);
+
+        List<Element> neighbors =  getNeighbors(Fire.spreadDirections);
+        for (Element neighbor: neighbors) {
+            if (Math.random() < 0.1) {
+                neighbor.burn();
+                break;
+            }
+        }
         if (destroyed) {
             transformTo(ElementType.FIRE);
         }

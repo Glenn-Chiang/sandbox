@@ -52,7 +52,7 @@ public class Sandbox extends ApplicationAdapter {
         // Boilerplate stage setup
         stage = new Stage(viewport);
 
-        inputManager = new InputManager(elementPainter, stage);
+        inputManager = new InputManager(camera, elementPainter, stage);
         Gdx.input.setInputProcessor(inputManager.multiplexer);
 
         rootLayout = new Table();
@@ -69,12 +69,10 @@ public class Sandbox extends ApplicationAdapter {
         // Fill screen with black background
         ScreenUtils.clear(0, 0, 0, 1);
         camera.update();
-        cursorPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-        camera.unproject(cursorPos); // Translate point from screen space to world space
 
         gridDisplay.render(shapeRenderer);
         worldGrid.update();
-        elementPainter.render(new Vector2(cursorPos.x, cursorPos.y));
+        elementPainter.render();
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();

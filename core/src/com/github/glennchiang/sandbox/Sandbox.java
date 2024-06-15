@@ -2,6 +2,7 @@ package com.github.glennchiang.sandbox;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.github.glennchiang.sandbox.usercontrols.ElementPainter;
 import com.github.glennchiang.sandbox.usercontrols.ElementPanel;
+import com.github.glennchiang.sandbox.usercontrols.InputManager;
 
 public class Sandbox extends ApplicationAdapter {
     public final static int SCREEN_WIDTH = 800;
@@ -27,9 +29,8 @@ public class Sandbox extends ApplicationAdapter {
     private final int GRID_WIDTH = 600;
     private final int GRID_HEIGHT = 600;
     private GridDisplay gridDisplay; // The visual representation of the abstract grid
-
     private ShapeRenderer shapeRenderer; // Used to draw all shapes
-
+    private InputManager inputManager;
     private ElementPainter elementPainter; // Handles selection of elements and adding of elements onto the world grid
     private ElementPanel elementPanel; // Renders the buttons for selecting elements
     private Stage stage;
@@ -37,7 +38,6 @@ public class Sandbox extends ApplicationAdapter {
 
     @Override
     public void create() {
-        // Set up camera
         camera = new OrthographicCamera();
         camera.setToOrtho(false, SCREEN_WIDTH, SCREEN_HEIGHT);
         viewport = new FitViewport(SCREEN_WIDTH, SCREEN_HEIGHT, camera);
@@ -51,12 +51,13 @@ public class Sandbox extends ApplicationAdapter {
 
         // Boilerplate stage setup
         stage = new Stage(viewport);
-        Gdx.input.setInputProcessor(stage);
+
+        inputManager = new InputManager(elementPainter, stage);
+        Gdx.input.setInputProcessor(inputManager.multiplexer);
 
         rootLayout = new Table();
         rootLayout.setFillParent(true);
         stage.addActor(rootLayout);
-//        rootLayout.setDebug(true);
 
         elementPanel = new ElementPanel(elementPainter);
         rootLayout.add(elementPanel.table).expand().top().right().width(180).padTop(10);

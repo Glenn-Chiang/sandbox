@@ -1,10 +1,12 @@
 package com.github.glennchiang.sandbox.usercontrols;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.GridDisplay;
@@ -17,7 +19,11 @@ public class ElementPainter
     private final GridDisplay gridDisplay;
     private final Circle brushArea;
     private final Cursor brushCursor;
+
+    private final int minBrushRadius = 2;
+    private final int maxBrushRadius = 64;
     private int brushRadius = 32; // Radius of brush cursor in pixels
+
     private ElementType activeElement = ElementType.SAND;
     private boolean brushActive = false;
 
@@ -63,10 +69,16 @@ public class ElementPainter
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
     }
 
+    public void changeBrushRadius(float amount) {
+        // Change brush radius while ensuring it remains within allowed range
+        brushRadius = (int) MathUtils.clamp(brushRadius + amount, minBrushRadius, maxBrushRadius);
+        brushArea.radius = brushRadius;
+    }
+
     // This cursor will be used when the brush is active, i.e. when the cursor is over the grid
     private Cursor createBrushCursor() {
         // Create cursor
-        Pixmap pixmap = new Pixmap(64, 64, Pixmap.Format.RGBA8888);
+        Pixmap pixmap = new Pixmap(brushRadius * 2, brushRadius * 2, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.RED);
         pixmap.drawCircle(brushRadius, brushRadius, brushRadius - 2);
         // Set cursor hotspot to center

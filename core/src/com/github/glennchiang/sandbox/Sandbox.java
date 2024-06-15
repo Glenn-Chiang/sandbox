@@ -18,7 +18,7 @@ public class Sandbox extends ApplicationAdapter {
     public final static int SCREEN_HEIGHT = 640;
     private FitViewport viewport;
     private OrthographicCamera camera;
-    final Vector3 touchPos = new Vector3(); // Position of last touch/click interaction
+    final Vector3 cursorPos = new Vector3(); // Position of last touch/click interaction
 
     private final int GRID_ROWS = 150;
     private final int GRID_COLS = 150;
@@ -45,9 +45,9 @@ public class Sandbox extends ApplicationAdapter {
         shapeRenderer.setProjectionMatrix(camera.combined);
 
         worldGrid = new Grid(GRID_ROWS, GRID_COLS);
-        elementPainter = new ElementPainter();
         gridDisplay = new GridDisplay(10, (SCREEN_HEIGHT - GRID_HEIGHT) / 2,
-                                        GRID_WIDTH, GRID_HEIGHT, worldGrid, elementPainter);
+                                        GRID_WIDTH, GRID_HEIGHT, worldGrid);
+        elementPainter = new ElementPainter(gridDisplay);
 
         // Boilerplate stage setup
         stage = new Stage(viewport);
@@ -68,18 +68,15 @@ public class Sandbox extends ApplicationAdapter {
         // Fill screen with black background
         ScreenUtils.clear(0, 0, 0, 1);
         camera.update();
+        cursorPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+        camera.unproject(cursorPos); // Translate point from screen space to world space
 
         gridDisplay.render(shapeRenderer);
         worldGrid.update();
+        elementPainter.render(new Vector2(cursorPos.x, cursorPos.y));
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
-
-        if (Gdx.input.isTouched()) {
-            touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-            camera.unproject(touchPos); // Translate point from screen space to world space
-            gridDisplay.handleTouch(new Vector2(touchPos.x, touchPos.y));
-        }
     }
 
     @Override

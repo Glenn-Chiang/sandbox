@@ -2,8 +2,8 @@ package com.github.glennchiang.sandbox;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.github.glennchiang.sandbox.elements.Element;
 import com.github.glennchiang.sandbox.usercontrols.ElementPainter;
 
@@ -15,19 +15,17 @@ public class GridDisplay {
     private final Grid grid;
 
     // Shape representing the grid
-    private final Rectangle gridFrame;
+    public final Rectangle gridFrame;
     // Shapes representing the cells of the grid
     private final Rectangle[][] cells;
 
-    private final ElementPainter elementPainter;
 
     // GridDisplay is initialized by passing its position (bottom-left corner)
     // and the abstract grid of elements to display
-    public GridDisplay(int x, int y, int width, int height, Grid grid, ElementPainter elementPainter) {
+    public GridDisplay(int x, int y, int width, int height, Grid grid) {
         this.grid = grid;
         this.WIDTH = width;
         this.HEIGHT = height;
-        this.elementPainter = elementPainter;
 
         // Create rectangle representing grid boundaries
         gridFrame = new Rectangle();
@@ -80,18 +78,14 @@ public class GridDisplay {
         }
     }
 
-    public void handleTouch(Vector2 touchPos) {
-        // Check if touchPos is in grid frame. If not, do nothing.
-        if (!gridFrame.contains(touchPos)) return;
-        // Find the cell that was clicked and paint the active element at that cell
+    public void fillArea(ElementPainter elementPainter) {
         for (int row = 0; row < grid.numRows; row++) {
             for (int col = 0; col < grid.numCols; col++) {
                 Rectangle cell = cells[row][col];
-                if (cell.contains(touchPos)) {
+                if (Intersector.overlaps(elementPainter.brushArea, cell)) {
                     elementPainter.paintCell(grid, row, col);
                 }
             }
         }
     }
-
 }

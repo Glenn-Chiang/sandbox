@@ -14,11 +14,12 @@ import com.github.glennchiang.sandbox.elements.ElementType;
 // This class should not be used for dynamic reactions between elements
 public class ElementPainter
 {
-    private GridDisplay gridDisplay;
-    public final Circle brushArea;
-    private  Cursor brushCursor;
+    private final GridDisplay gridDisplay;
+    private final Circle brushArea;
+    private final Cursor brushCursor;
     private int brushRadius = 32; // Radius of brush cursor in pixels
     private ElementType activeElement = ElementType.SAND;
+    private boolean brushActive = false;
 
     public ElementPainter(GridDisplay gridDisplay) {
         this.gridDisplay = gridDisplay;
@@ -37,10 +38,20 @@ public class ElementPainter
     public void render(Vector2 cursorPos) {
         brushArea.x = cursorPos.x;
         brushArea.y = cursorPos.y;
-        if (Gdx.input.isTouched()) {
-            // Check if cursor is in grid frame. If not, do nothing.
-            if (!gridDisplay.gridFrame.contains(cursorPos)) return;
-            gridDisplay.fillArea(this);
+
+        // If cursor is over grid frame, switch to brush cursor
+        if (gridDisplay.gridFrame.contains(cursorPos)) {
+            if (!brushActive) {
+                switchToBrushCursor();
+            }
+            brushActive = true;
+            if (Gdx.input.isTouched()) {
+                gridDisplay.fillAreaWithElement(brushArea, activeElement);
+            }
+        // If cursor is outside grid frame and brush was still active, switch to default cursor
+        } else if (brushActive) {
+            switchToDefaultCursor();
+            brushActive = false;
         }
     }
 
@@ -73,10 +84,4 @@ public class ElementPainter
     public void setActiveElement(ElementType elementType) {
         this.activeElement = elementType;
     }
-
-    // Create an instance of the active element and place it at the given position on the grid
-    public void paintCell(Grid grid, int row, int col) {
-        grid.setElement(row, col, activeElement.createInstance(grid));
-    }
-
 }

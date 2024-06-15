@@ -2,10 +2,11 @@ package com.github.glennchiang.sandbox;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.github.glennchiang.sandbox.elements.Element;
-import com.github.glennchiang.sandbox.usercontrols.ElementPainter;
+import com.github.glennchiang.sandbox.elements.ElementType;
 
 public class GridDisplay {
     public final int WIDTH;
@@ -78,12 +79,12 @@ public class GridDisplay {
         }
     }
 
-    public void fillArea(ElementPainter elementPainter) {
+    public void fillAreaWithElement(Circle area, ElementType elementType) {
         for (int row = 0; row < grid.numRows; row++) {
             for (int col = 0; col < grid.numCols; col++) {
                 Rectangle cell = cells[row][col];
-                if (Intersector.overlaps(elementPainter.brushArea, cell)) {
-                    elementPainter.paintCell(grid, row, col);
+                if (Intersector.overlaps(area, cell)) {
+                    grid.setElement(row, col, elementType.createInstance(grid));
                 }
             }
         }

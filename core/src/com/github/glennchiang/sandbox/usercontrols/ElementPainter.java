@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
@@ -17,8 +18,6 @@ public class ElementPainter
     private final GridDisplay gridDisplay;
     private Vector3 cursorPos = new Vector3();
     private final Circle brushArea;
-    private final Cursor brushCursor;
-
     private final int minBrushRadius = 2;
     private final int maxBrushRadius = 64;
     private int brushRadius = 32; // Radius of brush cursor in pixels
@@ -34,9 +33,19 @@ public class ElementPainter
         brushArea.x = 0;
         brushArea.y = 0;
         brushArea.radius = brushRadius;
+    }
 
-        brushCursor = createBrushCursor();
-        switchToBrushCursor();
+    // Runs every frame to poll for inputs
+    public void render(ShapeRenderer shapeRenderer) {
+        if (!brushActive) return;
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(Color.RED);
+        shapeRenderer.circle(cursorPos.x, cursorPos.y, brushRadius);
+        shapeRenderer.end();
+
+        if (Gdx.input.isTouched()) {
+            paint();
+        }
     }
 
     public void updateCursorPos(Vector3 pos) {
@@ -45,53 +54,17 @@ public class ElementPainter
         brushArea.y = cursorPos.y;
 
         // If cursor is over grid frame, switch to brush cursor
-        if (gridDisplay.gridFrame.contains(cursorPos.x, cursorPos.y)) {
-            if (!brushActive) {
-                switchToBrushCursor();
-            }
-            brushActive = true;
-            // If cursor is outside grid frame and brush was still active, switch to default cursor
-        } else if (brushActive) {
-            switchToDefaultCursor();
-            brushActive = false;
-        }
-    }
-
-    // Runs every frame to poll for inputs
-    public void render() {
-
+        brushActive = gridDisplay.gridFrame.contains(cursorPos.x, cursorPos.y);
     }
 
     public void paint() {
         gridDisplay.fillAreaWithElement(brushArea, activeElement);
     }
 
-    private void switchToBrushCursor() {
-        Gdx.graphics.setCursor(brushCursor);
-    }
-
-    private void switchToDefaultCursor() {
-        Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
-    }
-
     public void changeBrushRadius(float amount) {
         // Change brush radius while ensuring it remains within allowed range
         brushRadius = (int) MathUtils.clamp(brushRadius + amount, minBrushRadius, maxBrushRadius);
         brushArea.radius = brushRadius;
-    }
-
-    // This cursor will be used when the brush is active, i.e. when the cursor is over the grid
-    private Cursor createBrushCursor() {
-        // Create cursor
-        Pixmap pixmap = new Pixmap(brushRadius * 2, brushRadius * 2, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.RED);
-        pixmap.drawCircle(brushRadius, brushRadius, brushRadius - 2);
-        // Set cursor hotspot to center
-        int xHotspot = pixmap.getWidth() / 2;
-        int yHotspot = pixmap.getHeight() / 2;
-        Cursor cursor = Gdx.graphics.newCursor(pixmap, xHotspot, yHotspot);
-        pixmap.dispose();
-        return cursor;
     }
 
     public ElementType[] getElementTypes() {

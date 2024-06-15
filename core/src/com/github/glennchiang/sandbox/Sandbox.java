@@ -72,7 +72,7 @@ public class Sandbox extends ApplicationAdapter {
 
         gridDisplay.render(shapeRenderer);
         worldGrid.update();
-        elementPainter.render();
+        elementPainter.render(shapeRenderer);
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();

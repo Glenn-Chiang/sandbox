@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.github.glennchiang.sandbox.elements.ElementType;
 
 // Handles rendering of element buttons for ElementPainter
@@ -26,6 +27,8 @@ public class ElementPanel {
 
         table.setDebug((true));
 
+        Pixmap pixmap = new Pixmap(32, 32, Pixmap.Format.RGBA8888);
+
         for (int i = 0; i < elementTypes.length; i++) {
             ElementType elementType = elementTypes[i];
 
@@ -33,7 +36,12 @@ public class ElementPanel {
             style.font = new BitmapFont();
             style.fontColor = elementType.color;
 
+            pixmap.setColor(elementType.color);
+            pixmap.fillRectangle(0,0, 32, 16);
+            Texture texture = new Texture(pixmap);
+
             Button button = new TextButton(elementType.name(), style);
+            button.setBackground(new TextureRegionDrawable(new TextureRegion(texture)));
 
             // When button is clicked, set the active element of elementPainter
             // to the corresponding element

@@ -1,6 +1,7 @@
 package com.github.glennchiang.sandbox.elements.fluids.gas;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.Element;
@@ -10,11 +11,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class Gas extends Fluid {
-    private float life; //Remaining lifespan
+    private float lifespan; // Remaining time until the Gas disappears
 
-    public Gas(Grid grid, boolean flammable, int floatRate, int flowRate, float lifespan) {
+    public Gas(Grid grid, boolean flammable, int floatRate, int flowRate, float minLifespan, float maxLifespan) {
         super(grid, 0, flammable, floatRate, flowRate);
-        life = lifespan;
+        lifespan = MathUtils.random(minLifespan, maxLifespan);
     }
 
     @Override
@@ -29,8 +30,8 @@ public abstract class Gas extends Fluid {
     @Override
     protected void update() {
         super.update();
-        life -= Gdx.graphics.getDeltaTime();
-        if (life <= 0) {
+        lifespan -= Gdx.graphics.getDeltaTime();
+        if (lifespan <= 0) {
             destroy();
         }
     }

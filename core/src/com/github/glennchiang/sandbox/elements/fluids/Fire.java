@@ -7,6 +7,7 @@ import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.Element;
 import com.github.glennchiang.sandbox.elements.ElementType;
 import com.github.glennchiang.sandbox.elements.fluids.liquids.Liquid;
+import com.github.glennchiang.sandbox.elements.fluids.liquids.Oil;
 
 import java.util.Arrays;
 import java.util.List;
@@ -48,27 +49,27 @@ public class Fire extends Fluid {
         // Life decreases every frame. When life reaches 0, fire extinguishes.
         lifespan -= Gdx.graphics.getDeltaTime();
         if (lifespan <= 0) {
-            extinguish();
+            transformTo(ElementType.SMOKE);
             return;
-        }
-
-        // Liquids extinguish fire
-        for (Element neighbor: getNeighbors()) {
-            if (neighbor instanceof Liquid) {
-                extinguish();
-                break;
-            }
         }
 
         // Spread to neighboring elements
         for (Element neighbor: getNeighbors(spreadDirections)) {
-            neighbor.onContactFire();
+            neighbor.acceptFire(this);
         }
     }
 
-    private void extinguish() {
+    public void react(Element element) {
+        element.burn();
+    }
+
+    public void react(Liquid liquid) {
+        liquid.vaporize();
         destroy();
-        transformTo(ElementType.SMOKE);
+    }
+
+    public void react(Oil oil) {
+        oil.burn();
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.github.glennchiang.sandbox.elements.fluids;
 
-import com.badlogic.gdx.Gdx;
 import com.github.glennchiang.sandbox.CellPosition;
 import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
@@ -90,7 +89,7 @@ public abstract class Fluid extends Element {
             return true;
         }
 
-        if (sinksIn(getElementAt(dir))) {
+        if (sinksIn(getNeighbor(dir))) {
             swap(dir);
             return true;
         }

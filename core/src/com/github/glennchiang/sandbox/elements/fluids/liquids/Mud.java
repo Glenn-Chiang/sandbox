@@ -10,9 +10,4 @@ public class Mud extends Liquid {
     public Mud(Grid grid) {
         super(grid, false, 1, 1, 4);
     }
-
-    @Override
-    public void onContactAcid() {
-        return;
-    }
 }

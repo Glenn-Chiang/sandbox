@@ -8,6 +8,7 @@ import com.github.glennchiang.sandbox.elements.fluids.granules.Dirt;
 import com.github.glennchiang.sandbox.elements.fluids.granules.Sand;
 import com.github.glennchiang.sandbox.elements.fluids.liquids.Acid;
 import com.github.glennchiang.sandbox.elements.fluids.liquids.Mud;
+import com.github.glennchiang.sandbox.elements.fluids.liquids.Oil;
 import com.github.glennchiang.sandbox.elements.fluids.liquids.Water;
 import com.github.glennchiang.sandbox.elements.solids.Stone;
 import com.github.glennchiang.sandbox.elements.solids.Wood;
@@ -39,17 +40,21 @@ public enum ElementType {
         @Override
         public Dirt createInstance(Grid grid) { return new Dirt(grid); }
     },
-    WATER(Color.SKY) {
-        @Override
-        public Water createInstance(Grid grid) {return new Water(grid); }
-    },
     MUD(Color.valueOf("6E2C00")) {
         @Override
         public Mud createInstance(Grid grid) { return new Mud(grid); }
     },
+    WATER(Color.SKY) {
+        @Override
+        public Water createInstance(Grid grid) {return new Water(grid); }
+    },
     ACID(Color.CHARTREUSE) {
         @Override
         public Acid createInstance(Grid grid) { return new Acid(grid); }
+    },
+    OIL(Color.GOLDENROD) {
+      @Override
+      public Oil createInstance(Grid grid) {return new Oil(grid);}
     },
     FIRE(Color.ORANGE) {
         @Override

@@ -6,10 +6,10 @@ import com.github.glennchiang.sandbox.elements.Element;
 import java.util.List;
 
 public class Acid extends Liquid {
-    private static final int density = 1;
     private static final int fallRate = 2;
     private static final int flowRate = 2;
     private static final boolean flammable = false;
+    private static final int density = 2;
 
     // When acid comes into contact with an element that it can corrode,
     // the element will receive this amount of damage per frame
@@ -33,8 +33,4 @@ public class Acid extends Liquid {
         element.takeDamage(corrosionDamage);
     }
 
-    @Override
-    public void onContactAcid() {
-        return; // Acid shouldn't react with itself
-    }
 }

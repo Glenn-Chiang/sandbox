@@ -58,7 +58,7 @@ public abstract class Element {
         this.row = row;
         this.col = col;
 
-        if (flammable && burning) onContactFire();
+        if (flammable && burning) burn();
 
         update();
     }
@@ -66,7 +66,7 @@ public abstract class Element {
     // Each element implements its own update behaviour
     protected abstract void update();
 
-    protected final Element getElementAt(Direction dir) {
+    protected final Element getNeighbor(Direction dir) {
         return grid.elementAt(row + dir.y, col + dir.x);
     }
 
@@ -83,7 +83,7 @@ public abstract class Element {
     // Check if this element is adjacent to at least [count] number of the given element
     protected final boolean isNeighbour(Class<? extends Element> elementClass, int count) {
         for (Direction dir: Direction.values()) {
-            if (elementClass.isInstance(getElementAt(dir))) {
+            if (elementClass.isInstance(getNeighbor(dir))) {
                 count--;
             }
         }
@@ -99,8 +99,8 @@ public abstract class Element {
     protected final List<Element> getNeighbors() {
         List<Element> neighbours = new ArrayList<>();
         for (Direction dir: Direction.values()) {
-            if (grid.inBounds(getCellPosition(dir)) && !isCellEmpty(dir)) {
-                neighbours.add(getElementAt(dir));
+            if (hasNeighbor(dir)) {
+                neighbours.add(getNeighbor(dir));
             }
         }
         return neighbours;
@@ -109,11 +109,16 @@ public abstract class Element {
     protected final List<Element> getNeighbors(List<Direction> directions) {
         List<Element> neighbours = new ArrayList<>();
         for (Direction dir: directions) {
-            if (grid.inBounds(getCellPosition(dir)) && !isCellEmpty(dir)) {
-                neighbours.add(getElementAt(dir));
+            if (hasNeighbor(dir)) {
+                neighbours.add(getNeighbor(dir));
             }
         }
         return neighbours;
+    }
+
+    // Check if there is a neighboring element in this direction
+    private boolean hasNeighbor(Direction dir) {
+        return grid.inBounds(getCellPosition(dir)) && !isCellEmpty(dir);
     }
 
     // Replaces this element with the given element at its same position
@@ -124,23 +129,31 @@ public abstract class Element {
     // How the element will react with acid
     public abstract void onContactAcid();
 
+    public void acceptFire(Fire fire) { // Visitor pattern
+        fire.react(this);
+    }
+
     // How the element will react with fire
-    public void onContactFire() {
+    public final void burn() {
         if (!flammable) return;
 
         burning = true;
-        takeDamage(Fire.burnDamage);
-
         // Flammable elements will spread fire to neighbors
         List<Element> neighbors =  getNeighbors(Fire.spreadDirections);
         for (Element neighbor: neighbors) {
             if (Math.random() < 0.1) { // Chance to spread fire per frame
-                neighbor.onContactFire();
+                neighbor.burn();
                 break;
             }
         }
+
+        takeDamage(Fire.burnDamage);
         if (destroyed) {
             transformTo(ElementType.FIRE);
+            // Spread fire down after being destroyed
+            if (hasNeighbor(Direction.DOWN)) {
+                getNeighbor(Direction.DOWN).burn();
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ package com.github.glennchiang.sandbox.elements.fluids.liquids;
 import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.Element;
+import com.github.glennchiang.sandbox.elements.fluids.Fire;
 import com.github.glennchiang.sandbox.elements.fluids.Fluid;
 import com.github.glennchiang.sandbox.elements.fluids.gas.Gas;
 import com.github.glennchiang.sandbox.elements.fluids.granules.Granule;
@@ -16,7 +17,7 @@ public abstract class Liquid extends Fluid {
     private final int density;
 
     public Liquid(Grid grid, boolean flammable, int fallRate, int flowRate, int density) {
-        super(grid, 0, flammable, fallRate, flowRate);
+        super(grid, 20, flammable, fallRate, flowRate);
         this.density = density;
     }
 
@@ -32,8 +33,12 @@ public abstract class Liquid extends Fluid {
     }
 
     @Override
-    protected void update() {
-        super.update();
+    public void acceptFire(Fire fire) {
+        fire.react(this);
+    }
+
+    public void vaporize() {
+        destroy();
     }
 
     @Override
@@ -47,4 +52,7 @@ public abstract class Liquid extends Fluid {
         }
         return element instanceof Gas;
     }
+
+    @Override
+    public void onContactAcid() {}
 }

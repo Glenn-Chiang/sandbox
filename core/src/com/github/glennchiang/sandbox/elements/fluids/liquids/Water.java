@@ -7,7 +7,7 @@ public class Water extends Liquid {
     private static final int fallRate = 2;
     private static final int flowRate = 2;
 
-    private static final int density = 1;
+    private static final int density = 2;
     private static final boolean flammable = false;
 
     public Water(Grid grid) {

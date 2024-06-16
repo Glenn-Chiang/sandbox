@@ -33,11 +33,23 @@ public abstract class Liquid extends Fluid {
     }
 
     @Override
+    protected void update() {
+        super.update();
+        for (Element neighbor: getNeighbors()) {
+            // If the liquid is not flammable, it will douse neighboring elements
+            if (!flammable) {
+                neighbor.douse();
+            }
+        }
+    }
+
+    @Override
     public void acceptFire(Fire fire) {
         fire.react(this);
     }
 
     public void vaporize() {
+        // TODO: Form fumes or something
         destroy();
     }
 

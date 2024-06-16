@@ -21,7 +21,7 @@ public abstract class Element {
     private int integrity;
 
     public final boolean flammable;
-    private boolean burning = false;
+    private boolean isBurning = false;
     private boolean destroyed = false;
 
     public Element(Grid grid, int durability, boolean flammable) {
@@ -34,7 +34,7 @@ public abstract class Element {
     }
 
     public Color getColor() {
-        if (burning) {
+        if (isBurning) {
             return Color.CORAL;
         } else {
             return getElementType().color;
@@ -58,7 +58,7 @@ public abstract class Element {
         this.row = row;
         this.col = col;
 
-        if (flammable && burning) burn();
+        if (flammable && isBurning) burn();
 
         update();
     }
@@ -137,7 +137,7 @@ public abstract class Element {
     public final void burn() {
         if (!flammable) return;
 
-        burning = true;
+        isBurning = true;
         // Flammable elements will spread fire to neighbors
         List<Element> neighbors =  getNeighbors(Fire.spreadDirections);
         for (Element neighbor: neighbors) {
@@ -155,5 +155,9 @@ public abstract class Element {
                 getNeighbor(Direction.DOWN).burn();
             }
         }
+    }
+
+    public void douse() {
+        isBurning = false;
     }
 }

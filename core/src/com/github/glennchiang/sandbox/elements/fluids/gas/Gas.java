@@ -6,16 +6,20 @@ import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.Element;
 import com.github.glennchiang.sandbox.elements.fluids.Fluid;
+import com.github.glennchiang.sandbox.elements.fluids.liquids.Liquid;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
 public abstract class Gas extends Fluid {
+    // Determines which gasses float/sink in other gases
+    private final int density;
     private float lifespan; // Remaining time until the Gas disappears
 
-    public Gas(Grid grid, boolean flammable, int floatRate, int flowRate, float minLifespan, float maxLifespan) {
+    public Gas(Grid grid, boolean flammable, int floatRate, int flowRate, int density, float minLifespan, float maxLifespan) {
         super(grid, 0, flammable, floatRate, flowRate);
+        this.density = density;
         lifespan = MathUtils.random(minLifespan, maxLifespan);
     }
 
@@ -41,7 +45,8 @@ public abstract class Gas extends Fluid {
 
     @Override
     protected boolean sinksIn(Element element) {
-        return false;
+        if (!(element instanceof Gas)) return false;
+        return density > ((Gas) element).density;
     }
 
     @Override

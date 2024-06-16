@@ -58,7 +58,7 @@ public abstract class Element {
         this.row = row;
         this.col = col;
 
-        if (flammable && burning) burn();
+        if (flammable && burning) onContactFire();
 
         update();
     }
@@ -124,16 +124,18 @@ public abstract class Element {
     // How the element will react with acid
     public abstract void onContactAcid();
 
-    public final void burn() {
+    // How the element will react with fire
+    public void onContactFire() {
         if (!flammable) return;
 
         burning = true;
         takeDamage(Fire.burnDamage);
 
+        // Flammable elements will spread fire to neighbors
         List<Element> neighbors =  getNeighbors(Fire.spreadDirections);
         for (Element neighbor: neighbors) {
-            if (Math.random() < 0.1) {
-                neighbor.burn();
+            if (Math.random() < 0.1) { // Chance to spread fire per frame
+                neighbor.onContactFire();
                 break;
             }
         }

@@ -60,7 +60,7 @@ public class Sandbox extends ApplicationAdapter {
         stage.addActor(rootLayout);
 
         elementPanel = new ElementPanel(elementPainter);
-        rootLayout.add(elementPanel.table).expand().top().right().width(180).padTop(10);
+        rootLayout.add(elementPanel.table).expand().top().right().width(180).padTop(20);
 
     }
 

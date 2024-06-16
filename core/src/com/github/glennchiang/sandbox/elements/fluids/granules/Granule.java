@@ -3,6 +3,7 @@ package com.github.glennchiang.sandbox.elements.fluids.granules;
 import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.Element;
+import com.github.glennchiang.sandbox.elements.fluids.Fire;
 import com.github.glennchiang.sandbox.elements.fluids.Fluid;
 import com.github.glennchiang.sandbox.elements.fluids.gas.Gas;
 import com.github.glennchiang.sandbox.elements.fluids.liquids.Acid;
@@ -34,8 +35,7 @@ public abstract class Granule extends Fluid {
 
     @Override
     protected boolean sinksIn(Element element) {
-        // All granules sink in liquids
-        return element instanceof Liquid || element instanceof Gas;
+        return element instanceof Liquid || element instanceof Gas || element instanceof Fire;
     }
 
     @Override

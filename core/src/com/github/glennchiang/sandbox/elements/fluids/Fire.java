@@ -49,17 +49,20 @@ public class Fire extends Fluid {
         lifespan -= Gdx.graphics.getDeltaTime();
         if (lifespan <= 0) {
             extinguish();
+            return;
         }
 
+        // Liquids extinguish fire
         for (Element neighbor: getNeighbors()) {
             if (neighbor instanceof Liquid) {
                 extinguish();
+                break;
             }
         }
 
         // Spread to neighboring elements
         for (Element neighbor: getNeighbors(spreadDirections)) {
-            neighbor.burn();
+            neighbor.onContactFire();
         }
     }
 

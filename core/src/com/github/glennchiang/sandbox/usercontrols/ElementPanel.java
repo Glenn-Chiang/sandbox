@@ -6,10 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.github.glennchiang.sandbox.elements.ElementType;
 
@@ -17,31 +16,37 @@ import com.github.glennchiang.sandbox.elements.ElementType;
 public class ElementPanel {
     private final ElementPainter elementPainter;
     private final ElementType[] elementTypes;
-    private final Button[] buttons;
     public final Table table = new Table(); // Layout group containing all the buttons
 
     public ElementPanel(ElementPainter elementPainter) {
         this.elementPainter = elementPainter;
         this.elementTypes = elementPainter.getElementTypes();
-        this.buttons = new Button[elementTypes.length];
 
-        table.setDebug((true));
-
-        Pixmap pixmap = new Pixmap(32, 32, Pixmap.Format.RGBA8888);
+//        table.setDebug((true));
 
         for (int i = 0; i < elementTypes.length; i++) {
             ElementType elementType = elementTypes[i];
+            Color color = elementType.color;
 
-            TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
-            style.font = new BitmapFont();
-            style.fontColor = elementType.color;
-
-            pixmap.setColor(elementType.color);
-            pixmap.fillRectangle(0,0, 32, 16);
+            // Create pixmap for button background
+            Pixmap pixmap = new Pixmap(64, 32, Pixmap.Format.RGBA8888);
+            pixmap.setColor(color);
+            if (elementType == ElementType.EMPTY) {
+                pixmap.drawRectangle(0,0, pixmap.getWidth(), pixmap.getHeight());
+            } else {
+                pixmap.fillRectangle(0,0, pixmap.getWidth(), pixmap.getHeight());
+            }
             Texture texture = new Texture(pixmap);
+            Drawable drawable = new TextureRegionDrawable(new TextureRegion(texture));
+            pixmap.dispose();
 
-            Button button = new TextButton(elementType.name(), style);
-            button.setBackground(new TextureRegionDrawable(new TextureRegion(texture)));
+            Button button = new ImageButton(drawable);
+
+            // Create style for button label
+            Label.LabelStyle style = new Label.LabelStyle();
+            style.font = new BitmapFont();
+            style.fontColor = color;
+            Label label = new Label(elementType.name(), style);
 
             // When button is clicked, set the active element of elementPainter
             // to the corresponding element
@@ -51,8 +56,8 @@ public class ElementPanel {
                 }
             });
 
-            buttons[i] = button;
-            table.add(button).expandX().fillX().pad(2);
+            table.add(button).expandX().fill().pad(2);
+            table.add(label).expandX().fill().pad(2);
             table.row();
         }
     }

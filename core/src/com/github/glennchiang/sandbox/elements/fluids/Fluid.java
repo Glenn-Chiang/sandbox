@@ -1,5 +1,6 @@
 package com.github.glennchiang.sandbox.elements.fluids;
 
+import com.badlogic.gdx.Gdx;
 import com.github.glennchiang.sandbox.CellPosition;
 import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
@@ -98,7 +99,8 @@ public abstract class Fluid extends Element {
 
     // Try to fall in the given direction
     protected final boolean fall(Direction dir) {
-        return move(dir, fallRate);
+        return move(dir, fallRate );
+
     }
 
     protected final boolean flow(Direction dir) {

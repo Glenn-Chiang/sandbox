@@ -39,7 +39,7 @@ public class ElementPainter
     public void render(ShapeRenderer shapeRenderer) {
         if (!brushActive) return;
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(Color.RED);
+        shapeRenderer.setColor(activeElement.color);
         shapeRenderer.circle(cursorPos.x, cursorPos.y, brushRadius);
         shapeRenderer.end();
 

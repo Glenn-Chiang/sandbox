@@ -15,6 +15,7 @@ public class Dirt extends Granule {
     @Override
     protected void update() {
         super.update();
+        // Dirt transforms into mud on contact with water or mud
         if (isNeighbour(Water.class) || isNeighbour(Mud.class, 4)) {
             transformTo(ElementType.MUD);
         }

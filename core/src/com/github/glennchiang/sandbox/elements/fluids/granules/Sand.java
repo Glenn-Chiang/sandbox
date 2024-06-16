@@ -9,8 +9,4 @@ public class Sand extends Granule {
         super(grid, flammable, fallRate);
     }
 
-    @Override
-    protected void update() {
-        super.update();
-    }
 }

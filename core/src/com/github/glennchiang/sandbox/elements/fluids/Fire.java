@@ -54,6 +54,7 @@ public class Fire extends Fluid {
         }
 
         // Spread to neighboring elements
+        // Visitor pattern
         for (Element neighbor: getNeighbors(spreadDirections)) {
             neighbor.acceptFire(this);
         }
@@ -71,6 +72,9 @@ public class Fire extends Fluid {
     public void react(Oil oil) {
         oil.burn();
     }
+
+    @Override
+    public void acceptFire(Fire fire) {} // Fire does not react with fire
 
     @Override
     protected boolean sinksIn(Element element) {

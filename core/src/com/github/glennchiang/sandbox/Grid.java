@@ -6,7 +6,7 @@ public class Grid {
     public final int numRows;
     public final int numCols;
     private final Element[][] grid;
-    private final boolean[][] visitedTracker; // Matrix that keeps track of which cells have already been visited in the current render loop
+    public final boolean[][] visitedTracker; // Matrix that keeps track of which cells have already been visited in the current render loop
 
     public Grid(int numRows, int numCols) {
         this.numRows = numRows;
@@ -65,7 +65,7 @@ public class Grid {
     }
 
     // Check whether the given cell has already been visited in the current render loop
-    private boolean isVisited(int row, int col) {
+    public boolean isVisited(int row, int col) {
         return visitedTracker[row][col];
     }
 

@@ -89,6 +89,7 @@ public abstract class Fluid extends Element {
             return true;
         }
 
+        // Sink in element at target position, if possible
         if (sinksIn(getNeighbor(dir))) {
             swap(dir);
             return true;

@@ -29,11 +29,6 @@ public abstract class Granule extends Fluid {
     }
 
     @Override
-    protected void update() {
-        super.update();
-    }
-
-    @Override
     protected boolean sinksIn(Element element) {
         return element instanceof Liquid || element instanceof Gas || element instanceof Fire;
     }

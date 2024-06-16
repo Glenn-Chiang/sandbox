@@ -58,9 +58,9 @@ public abstract class Element {
         this.row = row;
         this.col = col;
 
-        if (flammable && isBurning) burn();
-
         update();
+
+        if (isBurning) burn();
     }
 
     // Each element implements its own update behaviour
@@ -152,7 +152,8 @@ public abstract class Element {
             transformTo(ElementType.FIRE);
             // Spread fire down after being destroyed
             if (hasNeighbor(Direction.DOWN)) {
-                getNeighbor(Direction.DOWN).burn();
+                    getNeighbor(Direction.DOWN).burn();
+
             }
         }
     }

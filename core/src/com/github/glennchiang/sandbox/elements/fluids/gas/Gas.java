@@ -7,6 +7,7 @@ import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.Element;
 import com.github.glennchiang.sandbox.elements.fluids.Fluid;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,7 +24,9 @@ public abstract class Gas extends Fluid {
         return Arrays.asList(
                 Arrays.asList(() -> fall(Direction.UP),
                         () -> fall(Direction.UP_LEFT),
-                        () -> fall(Direction.UP_RIGHT))
+                        () -> fall(Direction.UP_RIGHT)),
+                Arrays.asList(() -> flow(Direction.LEFT),
+                        () -> flow(Direction.RIGHT))
         );
     }
 

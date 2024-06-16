@@ -3,6 +3,7 @@ package com.github.glennchiang.sandbox.elements.fluids.liquids;
 import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.Element;
+import com.github.glennchiang.sandbox.elements.ElementType;
 import com.github.glennchiang.sandbox.elements.fluids.Fire;
 import com.github.glennchiang.sandbox.elements.fluids.Fluid;
 import com.github.glennchiang.sandbox.elements.fluids.gas.Gas;
@@ -50,7 +51,7 @@ public abstract class Liquid extends Fluid {
 
     public void vaporize() {
         // TODO: Form fumes or something
-        destroy();
+        transformTo(ElementType.STEAM);
     }
 
     @Override

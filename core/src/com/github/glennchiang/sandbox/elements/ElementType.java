@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.fluids.Fire;
 import com.github.glennchiang.sandbox.elements.fluids.gas.Smoke;
+import com.github.glennchiang.sandbox.elements.fluids.gas.Steam;
 import com.github.glennchiang.sandbox.elements.fluids.granules.Dirt;
 import com.github.glennchiang.sandbox.elements.fluids.granules.Sand;
 import com.github.glennchiang.sandbox.elements.fluids.liquids.Acid;
@@ -63,6 +64,10 @@ public enum ElementType {
     SMOKE(Color.DARK_GRAY) {
         @Override
         public Smoke createInstance(Grid grid) { return new Smoke(grid); }
+    },
+    STEAM(Color.LIGHT_GRAY) {
+        @Override
+        public Steam createInstance(Grid grid) { return new Steam(grid); }
     }
     ;
 

@@ -14,9 +14,4 @@ public class Oil extends Liquid {
     public Oil(Grid grid) {
         super(grid, flammable, fallRate, flowRate, density);
     }
-
-    @Override
-    public void acceptFire(Fire fire) {
-        fire.react(this);
-    }
 }

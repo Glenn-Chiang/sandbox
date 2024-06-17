@@ -46,35 +46,18 @@ public class Fire extends Fluid {
     protected void update() {
         super.update();
 
-        // Life decreases every frame. When life reaches 0, fire extinguishes.
+        // Life decreases every frame. When life reaches 0, fire extinguishes to smoke.
         lifespan -= Gdx.graphics.getDeltaTime();
         if (lifespan <= 0) {
             transformTo(ElementType.SMOKE);
             return;
         }
 
-        // Spread to neighboring elements
-        // Visitor pattern
+        // Neighboring elements decide how they react with fire
         for (Element neighbor: getNeighbors(spreadDirections)) {
-            neighbor.acceptFire(this);
+            neighbor.onContactFire(this);
         }
     }
-
-    public void react(Element element) {
-        element.burn();
-    }
-
-    public void react(Liquid liquid) {
-        liquid.vaporize();
-        destroy();
-    }
-
-    public void react(Oil oil) {
-        oil.burn();
-    }
-
-    @Override
-    public void acceptFire(Fire fire) {} // Fire does not react with fire
 
     @Override
     protected boolean sinksIn(Element element) {

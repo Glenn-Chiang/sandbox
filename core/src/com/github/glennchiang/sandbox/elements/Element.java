@@ -5,9 +5,12 @@ import com.github.glennchiang.sandbox.CellPosition;
 import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.fluids.Fire;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class Element {
 
@@ -47,8 +50,8 @@ public abstract class Element {
             destroy();
         }
     }
-    protected final void destroy() {
-        grid.setElement(row, col, null);
+    public final void destroy() {
+        grid.destroyElement(row, col);
         destroyed = true;
     }
 
@@ -129,36 +132,59 @@ public abstract class Element {
     // How the element will react with acid
     public abstract void onContactAcid();
 
-    public void acceptFire(Fire fire) { // Visitor pattern
-        fire.react(this);
+    // How the element will react with fire
+    public void onContactFire(Fire fire) {
+        if (flammable) burn();
     }
 
-    // How the element will react with fire
-    public final void burn() {
+    private void burn() {
+        Map<Element, Boolean> visited = new HashMap<>();
+        recursiveBurn(visited);
+    }
+
+    private void recursiveBurn(Map<Element, Boolean> visited) {
+        // Skip this element if already visited
+        if (visited.getOrDefault(this, false)) return;
+        // Skip this element if it is not flammable
         if (!flammable) return;
 
         isBurning = true;
-        // Flammable elements will spread fire to neighbors
-        List<Element> neighbors =  getNeighbors(Fire.spreadDirections);
-        for (Element neighbor: neighbors) {
-            if (Math.random() < 0.1) { // Chance to spread fire per frame
-                neighbor.burn();
-                break;
-            }
-        }
-
         takeDamage(Fire.burnDamage);
+        visited.put(this, true); // Mark this element as visited
+
+        // Spread fire down after being destroyed
         if (destroyed) {
             transformTo(ElementType.FIRE);
-            // Spread fire down after being destroyed
             if (hasNeighbor(Direction.DOWN)) {
-                    getNeighbor(Direction.DOWN).burn();
+                getNeighbor(Direction.DOWN).recursiveBurn(visited);
+            }
+            return;
+        }
 
+        // Flammable elements will spread fire to neighbors
+        for (Element neighbor: getNeighbors(Fire.spreadDirections)) {
+            if (Math.random() < 0.1) { // Chance to spread fire per frame
+                neighbor.recursiveBurn(visited);
+                break;
             }
         }
     }
 
-    public void douse() {
+    public void douse(Element source) {
+        if (!isBurning) return;
+
+        Map<Element, Boolean> visited = new HashMap<>();
+        visited.put(source, true);
+        recursiveDouse(visited);
+    }
+
+    private void recursiveDouse(Map<Element, Boolean> visited) {
+        if (visited.getOrDefault(this, false)) return;
+        if (!isBurning) return;
         isBurning = false;
+        visited.put(this, true);
+        for (Element neighbor: getNeighbors()) {
+            neighbor.recursiveDouse(visited);
+        }
     }
 }

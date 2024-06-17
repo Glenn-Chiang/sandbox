@@ -65,7 +65,7 @@ public class Grid {
     }
 
     // Check whether the given cell has already been visited in the current render loop
-    public boolean isVisited(int row, int col) {
+    private boolean isVisited(int row, int col) {
         return visitedTracker[row][col];
     }
 
@@ -81,6 +81,11 @@ public class Grid {
                 visitedTracker[row][col] = false;
             }
         }
+    }
+
+    public void destroyElement(int row, int col) {
+        setElement(row, col, null);
+        markVisited(row, col);
     }
 
     // Update each element in the grid

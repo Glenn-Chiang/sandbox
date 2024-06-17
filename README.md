@@ -2,6 +2,10 @@
 A simple falling sand simulation system build in Java with [libgdx](https://github.com/libgdx/libgdx).  
 The simulation features a 2D sandbox world in which users can create various elements like sand, water and fire which behave differently and interact with each other in interesting ways.
 
+https://github.com/Glenn-Chiang/sandbox/assets/122365492/67f17409-9139-4411-9eb3-c6f01e49b87b
+
+
+
 ## Concept
 The fundamental idea behind the falling sand algorithm is based on the principles of [cellular automata](https://en.wikipedia.org/wiki/Cellular_automaton). A cellular automaton typically consists of a matrix of discrete cells each containing a particular state that evolves over time. In each cycle of iteration, each cell updates its state according to a predefined set of rules which determine the next state of the cell based on its current state and the states of its neighbours.
 

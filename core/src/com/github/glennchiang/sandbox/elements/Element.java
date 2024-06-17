@@ -138,6 +138,7 @@ public abstract class Element {
     }
 
     private void burn() {
+        // Keep track of elements that have already been visited by the burning algorithm to avoid infinite loop
         Map<Element, Boolean> visited = new HashMap<>();
         recursiveBurn(visited);
     }
@@ -170,6 +171,7 @@ public abstract class Element {
         }
     }
 
+    // Some elements like non-flammable liquids can douse burning elements to stop them from burning further
     public void douse(Element source) {
         if (!isBurning) return;
 
@@ -178,9 +180,9 @@ public abstract class Element {
         recursiveDouse(visited);
     }
 
+    // Doused elements will also douse neighboring elements
     private void recursiveDouse(Map<Element, Boolean> visited) {
         if (visited.getOrDefault(this, false)) return;
-        if (!isBurning) return;
         isBurning = false;
         visited.put(this, true);
         for (Element neighbor: getNeighbors()) {

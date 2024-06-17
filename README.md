@@ -11,5 +11,11 @@ Unlike a classical cellular automaton where each cell contains a single state va
 
 As we add more kinds of elements to the simulation, their increasingly complex interactions may give rise to potentially fascinating emergent behaviour and visual spectacles. This project serves no purpose beyond providing some entertainment to the user by bestowing them the power of a God who can create and destroy the natural elements at will within a virtual sandbox world.
 
-## Getting started
+## Download
+### JAR file
+- Go to this project's [releases page](https://github.com/Glenn-Chiang/sandbox/releases)
+- Under Assets, download `desktop-1.0.jar`
+- Navigate to the download location and run `java -jar desktop-1.0.jar` or simply double-click the JAR file
+Note: You must have a JVM installed to run the JAR file
+  
 

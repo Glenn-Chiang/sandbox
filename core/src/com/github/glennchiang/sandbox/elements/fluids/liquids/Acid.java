@@ -13,7 +13,7 @@ public class Acid extends Liquid {
 
     // When acid comes into contact with an element that it can corrode,
     // the element will receive this amount of damage per frame
-    private static final int corrosionDamage = 1;
+    private static final int corrosionDamage = 2;
 
     public Acid(Grid grid) {
         super(grid, flammable, fallRate, flowRate, density);

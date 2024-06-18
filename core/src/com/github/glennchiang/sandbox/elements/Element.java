@@ -5,7 +5,6 @@ import com.github.glennchiang.sandbox.CellPosition;
 import com.github.glennchiang.sandbox.Direction;
 import com.github.glennchiang.sandbox.Grid;
 import com.github.glennchiang.sandbox.elements.fluids.Fire;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -83,19 +82,20 @@ public abstract class Element {
         return new CellPosition(row + dir.y, col + dir.x);
     }
 
-    // Check if this element is adjacent to at least [count] number of the given element
-    protected final boolean isNeighbour(Class<? extends Element> elementClass, int count) {
+    protected final boolean isNeighbour(ElementType elementType, int count) {
         for (Direction dir: Direction.values()) {
-            if (elementClass.isInstance(getNeighbor(dir))) {
+            if (hasNeighbor(dir) && elementType == getNeighbor(dir).getElementType()) {
                 count--;
             }
         }
         return count <= 0;
     }
+    // Check if this element is adjacent to at least [count] number of the given element
 
     // Check if any of this element's immediate neighbours is an instance of the given element class
-    protected final boolean isNeighbour(Class<? extends Element> elementClass) {
-        return isNeighbour(elementClass, 1);
+    protected final boolean isNeighbour(ElementType elementType) {
+        return isNeighbour(elementType, 1);
+
     }
 
     // Get neighboring elements
